@@ -26,7 +26,7 @@ export default {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
         user => {
           alert('Success!')
-          this.$router.push('/')
+          this.$router.push('/shumpay')
         },
         err => {
           console.log('エラー処理')
