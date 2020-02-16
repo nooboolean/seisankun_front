@@ -4,6 +4,7 @@ import Signup from '@/components/Signup'
 import Signin from '@/components/Signin'
 import Signout from '@/components/Signout'
 import TestRouter from '@/components/TestRouter'
+import UserInfo from '@/components/UserInfo'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -19,6 +20,12 @@ let router = new Router({
       name: 'TestRouter',
       // eslint-disable-next-line no-undef
       component: TestRouter,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/user_info',
+      name: 'UserInfo',
+      component: UserInfo,
       meta: { requiresAuth: true }
     },
     {
