@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import Firebase from '../firebase'
 
 export default {
   name: 'Signin',
@@ -23,17 +23,7 @@ export default {
   },
   methods: {
     signIn: function () {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-        user => {
-          alert('Success!')
-          this.$router.push('/shumpay')
-        },
-        err => {
-          console.log('エラー処理')
-          alert(err.message)
-        }
-      )
-      console.log(firebase.auth().currentUser.getIdToken(/* forceRefresh */ true))
+      Firebase.login(this.email, this.password)
     }
   }
 }
