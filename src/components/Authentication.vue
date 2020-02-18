@@ -8,11 +8,12 @@
     <!-- 未ログイン時にはログインボタンを表示 -->
     <div v-else key="logout">
       <button @click="signIn">Signin</button>
+      <button @click="signUp">Signup</button>
     </div>
   </div>
 </template>
 <script>
-import Firebase from './../firebase'
+import Firebase from '../plugins/firebase'
 export default {
   name: 'authentication',
   created: function () {
@@ -29,6 +30,9 @@ export default {
   methods: {
     signIn () {
       this.$router.push('/signin')
+    },
+    signUp () {
+      this.$router.push('/signup')
     },
     signOut () {
       Firebase.logout()

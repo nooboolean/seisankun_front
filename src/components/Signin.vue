@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Firebase from '../firebase'
+import Firebase from '../plugins/firebase'
 
 export default {
   name: 'Signin',

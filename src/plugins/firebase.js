@@ -1,6 +1,6 @@
 import firebase from 'firebase'
-import store from './store'
-import router from './router'
+import store from '../store'
+import router from '../router'
 
 const firebaseConfig = {
   apiKey: process.env.FIRE_BASE_API_KEY,
@@ -18,9 +18,11 @@ export default {
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
   },
   signupByEmailAndPassword (email, password) {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(user => {
-        alert('Create account: ', user.email)
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        // eslint-disable-next-line no-return-assign
+        alert('Success!')
+        return firebase.auth().currentUser
       })
       .catch(error => {
         console.log('エラー処理')
@@ -41,6 +43,9 @@ export default {
   },
   logout () {
     firebase.auth().signOut()
+  },
+  getCurrentUser () {
+    firebase.auth().currentUser()
   },
   onAuth () {
     firebase.auth().onAuthStateChanged(user => {
