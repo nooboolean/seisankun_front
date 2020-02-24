@@ -49,7 +49,7 @@ export default {
         this.name = '名無し'
       }
       let userByFirebase = await Firebase.signupByEmailAndPassword(this.email, this.password)
-      this.$notRequiresAuthApi.post('/v1/user/info/register', {
+      this.$seisankunApi.post('/v1/user/info/register', {
         uid: userByFirebase.uid,
         name: this.name,
         gender: this.genderSelected,
@@ -61,7 +61,7 @@ export default {
           this.$store.commit('onSeisankunAuthStateChanged', response.data)
           this.$store.commit('onUserStatusChanged', !!userByFirebase.uid)
           alert('会員登録完了！\n 引き続きサービスをご利用ください')
-          this.$router.push('/shumpay')
+          this.$router.push('/top')
         })
         .catch(err => {
           for (let key of Object.keys(err)) {

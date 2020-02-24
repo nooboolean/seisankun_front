@@ -22,7 +22,8 @@ export default {
     }
   },
   methods: {
-    signIn: function () {
+    signIn: async function () {
+      await Firebase.onAuth()
       Firebase.login(this.email, this.password)
     }
   }

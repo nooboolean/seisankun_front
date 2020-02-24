@@ -6,6 +6,7 @@
       <p> {{info.name}} </p>
       <p>日にち</p>
       <p>{{info.travelStart}}</p>
+      <p>{{ travels }}</p>
   </div>
 </template>
 
@@ -17,15 +18,17 @@ export default {
       title: 'しゅんぺい',
       info: '',
       userId: 13,
-      error: ''
+      error: '',
+      travels: ''
     }
   },
   created () {
     this.testGetRequest()
+    this.getTravels()
   },
   methods: {
     testGetRequest () {
-      this.$notRequiresAuthApi.get('/v1/travel/info/' + this.userId + '')
+      this.$seisankunApi.get('/v1/travel/info/' + this.userId + '')
         .then(response => {
           this.info = response.data
         })
@@ -39,6 +42,22 @@ export default {
           (this.error = err)
         })
         .finally(() => (this.loading = false))
+    },
+    getTravels () {
+      // eslint-disable-next-line vue/no-async-in-computed-properties
+      this.$seisankunApi.get('/v1/travel/list/' + this.$store.getters.userBySeisankun.id + '')
+        .then(response => {
+          this.travels = response.data
+        })
+        .catch(err => {
+          for (let key of Object.keys(err)) {
+            console.log(key)
+            console.log(err[key])
+          }
+          // eslint-disable-next-line no-unused-expressions
+          (this.errored = true),
+          (this.error = err)
+        })
     }
   }
 }
