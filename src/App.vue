@@ -24,4 +24,17 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+a{
+  color: #1ca593;
+  text-decoration: none;
+}
+
+a:hover{
+  color:#1a9f5a;
+}
+
+li{
+  list-style: none;
+}
 </style>

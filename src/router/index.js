@@ -4,7 +4,10 @@ import Signup from '@/components/Signup'
 import Signin from '@/components/Signin'
 import Signout from '@/components/Signout'
 import TestRouter from '@/components/TestRouter'
+import Top from '@/components/Top'
 import UserInfo from '@/components/UserInfo'
+import TravelInfo from '@/components/TravelInfo'
+import TravelRegister from '@/components/TravelRegister'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -16,16 +19,34 @@ let router = new Router({
       redirect: 'signin'
     },
     {
-      path: '/shumpay',
+      path: '/test',
       name: 'TestRouter',
       // eslint-disable-next-line no-undef
       component: TestRouter,
       meta: { requiresAuth: true }
     },
     {
+      path: '/top',
+      name: 'Top',
+      component: Top,
+      meta: { requiresAuth: true }
+    },
+    {
       path: '/user_info',
       name: 'UserInfo',
       component: UserInfo,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/travel/info/:travel_id',
+      name: 'TravelInfo',
+      component: TravelInfo,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/travel/register',
+      name: 'TravelRegister',
+      component: TravelRegister,
       meta: { requiresAuth: true }
     },
     {

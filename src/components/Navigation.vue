@@ -10,7 +10,7 @@
         </div>
         <div id="navbarExampleTransparentExample" class="navbar-menu" v-bind:class="{ 'is-active': menuActive }">
           <div class="navbar-start">
-            <router-link class="navbar-item" to="/shumpay">しゅん</router-link>
+            <router-link class="navbar-item" to="/top">Top</router-link>
             <div v-if="userStatus" key="login" class="navbar-item">
               <router-link class="navbar-item" to="/user_info">{{ userBySeisankun.name }}</router-link>
             </div>
@@ -55,7 +55,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
