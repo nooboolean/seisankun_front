@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>旅行作成</h2>
+    <h1 class="title">旅行作成</h1>
     <p>旅行名</p>
     <input type="text" placeholder="旅行名" v-model="travelName">
     <h3>旅行開始日</h3>

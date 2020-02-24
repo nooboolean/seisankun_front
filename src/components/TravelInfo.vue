@@ -1,10 +1,11 @@
 <template>
   <div>
-      <ul>
-        <li>{{ travel.name }}</li>
-        <li>{{ travel.travelStart }}</li>
-        <li>{{ travel.travelEnd }}</li>
-      </ul>
+    <h1 class="title">旅行詳細</h1>
+    <ul class="base-box">
+      <li class="travel-detail">{{ travel.name }}</li>
+      <li class="travel-detail">{{ travel.travelStart }}</li>
+      <li class="travel-detail">{{ travel.travelEnd }}</li>
+    </ul>
   </div>
 </template>
 
@@ -39,5 +40,7 @@ export default {
 </script>
 
 <style scoped>
-
+.travel-detail{
+  color: #2c3e50;
+}
 </style>

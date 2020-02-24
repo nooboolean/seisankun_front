@@ -1,9 +1,9 @@
 <template>
-  <div class="signin">
-    <h2>Sign in</h2>
+  <div class="login">
+    <h2 class="title">Login</h2>
     <input type="text" placeholder="Email" v-model="email">
     <input type="password" placeholder="Password" v-model="password">
-    <button @click="signIn">Signin</button>
+    <button class="login-button" @click="signIn">Login</button>
     <p>You don't have an account?
       <router-link to="/signup">create account now!!</router-link>
     </p>
@@ -31,26 +31,15 @@ export default {
 </script>
 
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.title {
+  letter-spacing: 10px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-.signin {
+.login {
   margin-top: 20px;
-
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
+  /* justify-content: center; */
+  justify-content: flex-end;
   align-items: center
 }
 input {

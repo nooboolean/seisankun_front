@@ -1,16 +1,20 @@
 <template>
   <div>
-    <ul>
-      <li v-for="travel in travels">
+    <h1 class="title">あなたの旅行一覧</h1>
+    <ul class="base-box">
+      <li class="travel-comtainer" v-for="travel in travels">
         <router-link v-bind:to="{ name : 'TravelInfo', params : { travel_id: travel.id }}">
-          <ul class="">
-            <li class="">旅行名：{{ travel.name }}</li>
-            <li class="">旅行日：{{ travel.travelStart }}</li>
+          <ul class="travel">
+            <li class="travel-info"><span class="travel-label">旅行名：</span> <span class="travel-info-detail">{{ travel.name }}</span></li>
+            <li class="travel-info"><span class="travel-label">参加者：</span> <span class="travel-info-detail">あああ</span></li>
+            <li class="travel-info"><span class="travel-label">旅行開始：</span> <span class="travel-info-detail">{{ travel.travelStart }}</span></li>
           </ul>
         </router-link>
        </li>
     </ul>
-    <router-link to="travel/register">+</router-link>
+    <div class="register-button">
+      <router-link to="travel/register">+</router-link>
+    </div>
   </div>
 </template>
 
@@ -46,5 +50,37 @@ export default {
 </script>
 
 <style scoped>
+.travel{
+  margin: 0px 5px 20px 5px;
+  padding: 5px;
+  box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+}
 
+.travel-info{
+  display: flex;
+}
+
+.travel-label{
+  color: #2c3e50;
+}
+
+.travel-info-detail{
+  color: #1db8a3;
+}
+
+.register-button{
+  font-weight: bold;
+  font-size: 11vw;
+  position: fixed;
+  top: 570px;
+  right: 10px;
+  width: 15vw;
+  height: 15vw;
+  background-color: #e4640f;
+  border-radius: 100%;
+  box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.4);
+}
 </style>

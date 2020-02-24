@@ -2,7 +2,7 @@
   <div class="authentication">
     <!-- ログイン時にはフォームとログアウトボタンを表示 -->
     <div v-if="userStatus" key="login" class="navbar-item">
-      <button @click="signOut">Sign out</button>
+      <button class="nav-auth-button" @click="signOut">Sign out</button>
     </div>
     <!-- 未ログイン時にはログインボタンを表示 -->
     <div v-else key="logout">
@@ -37,5 +37,13 @@ export default {
 }
 </script>
 <style scoped>
-
+.nav-auth-button{
+  padding: 5px 5px;
+  background-color: #1db8a3;
+  color: #fff;
+}
+.nav-auth-button:hover{
+  background-color: #fff;
+  color: #1db8a3;
+}
 </style>

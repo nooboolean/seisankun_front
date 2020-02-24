@@ -1,25 +1,16 @@
 <template>
     <div id="nav">
-      <nav class="navbar is-transparent" v-bind:class="{'is-fixed-bottom':menuPosition}">
-        <div class="navbar-brand">
-          <div class="navbar-burger burger " v-bind:class="{ 'is-active': menuActive }" v-on:click="menuToggle()" data-target="navbarExampleTransparentExample">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+      <div id="navbar-left">
+        <router-link to="/top"><img class="top-logo" src="@/assets/logo.png"></router-link>
+      </div>
+      <div id="navbar-right">
+        <div v-if="userStatus" key="login" class="nav-user-name">
+          <router-link to="/user_info">{{ userBySeisankun.name }}</router-link>
         </div>
-        <div id="navbarExampleTransparentExample" class="navbar-menu" v-bind:class="{ 'is-active': menuActive }">
-          <div class="navbar-start">
-            <router-link class="navbar-item" to="/top">Top</router-link>
-            <div v-if="userStatus" key="login" class="navbar-item">
-              <router-link class="navbar-item" to="/user_info">{{ userBySeisankun.name }}</router-link>
-            </div>
-          </div>
-          <div class="navbar-end">
-            <Authentication />
-          </div>
+        <div class="nav-auth">
+          <Authentication />
         </div>
-      </nav>
+      </div>
     </div>
 </template>
 <script>
@@ -55,3 +46,40 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#nav {
+  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.4);
+  border-bottom: solid 1px #fff;
+  padding: 5px 5vw;
+  display: flex;
+}
+
+.top-logo {
+  margin-top: 5px;
+  width: 10vw;
+  max-width: 80px;
+}
+
+#navbar-left {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+#navbar-right {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-user-name {
+  font-size: 100%;
+  align-self: center;
+  margin-right: 1vw;
+}
+
+.nav-auth {
+  align-self: center;
+}
+</style>
