@@ -4,11 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import Http from './plugins/http'
+import seisankunApi from './plugins/seisankunApi'
 
 import Firebase from './plugins/firebase'
 
-Vue.use(Http)
+Vue.use(seisankunApi)
 Firebase.init()
 
 Vue.config.productionTip = false
@@ -17,7 +17,7 @@ new Vue({
   el: '#app',
   router,
   store,
-  Http,
+  seisankunApi,
   components: { App },
   template: '<App/>'
 })

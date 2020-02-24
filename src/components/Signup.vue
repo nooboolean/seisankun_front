@@ -1,12 +1,21 @@
 <template>
   <div class="signup">
     <h2>会員登録</h2>
+    <p>メールアドレス</p>
     <input type="text" placeholder="Email" v-model="email">
+    <h3>パスワード</h3>
     <input type="password" placeholder="Password" v-model="password">
+    <h3>名前</h3>
     <input type="text" placeholder="Name" v-model="name">
-    <input type="text" placeholder="Gender" v-model="gender">
-    <input type="text" placeholder="Profile" v-model="profile">
-    <button @click="signUp">Register</button>
+    <h3>年齢</h3>
+    <select v-model="genderSelected">
+      <option v-for="gender in genderOptions" v-bind:value="gender.value">
+        {{ gender.text }}
+      </option>
+    </select>
+    <h3>自己紹介文</h3>
+    <textarea placeholder="Profile" v-model="profile"></textarea>
+    <button @click="signUp">会員登録</button>
     <p>すでに会員登録がお済みの方はこちら</p>
       <router-link to="/signin">ログイン</router-link>
   </div>
@@ -22,53 +31,50 @@ export default {
       email: '',
       password: '',
       name: null,
-      gender: 0,
+      genderSelected: 0,
+      genderOptions: [
+        { text: '未設定', value: 0 },
+        { text: '男', value: 1 },
+        { text: '女', value: 2 },
+        // eslint-disable-next-line standard/object-curly-even-spacing
+        { text: 'その他', value: 4}
+      ],
       profile: null,
-      createdBy: 0,
-      user: ''
+      createdBy: 0
     }
   },
   methods: {
     signUp: async function () {
-      this.user = await Firebase.signupByEmailAndPassword(this.email, this.password)
-      await this.$notRequiresAuthApi.post('/v1/user/info/register', {
-      // eslint-disable-next-line no-undef
-        uid: this.user.uid,
+      if (!this.name) {
+        this.name = '名無し'
+      }
+      let userByFirebase = await Firebase.signupByEmailAndPassword(this.email, this.password)
+      this.$notRequiresAuthApi.post('/v1/user/info/register', {
+        uid: userByFirebase.uid,
         name: this.name,
-        gender: this.gender,
+        gender: this.genderSelected,
         profile: this.profile,
         createdBy: this.createdBy
       })
         .then(response => {
-          this.info = response.data
+          this.$store.commit('onFirebaseAuthStateChanged', userByFirebase)
+          this.$store.commit('onSeisankunAuthStateChanged', response.data)
+          this.$store.commit('onUserStatusChanged', !!userByFirebase.uid)
+          alert('会員登録完了！\n 引き続きサービスをご利用ください')
+          this.$router.push('/shumpay')
         })
         .catch(err => {
           for (let key of Object.keys(err)) {
             console.log(key)
             console.log(err[key])
           }
-          // eslint-disable-next-line no-unused-expressions
-          (this.errored = true),
-          (this.error = err)
         })
-        .finally(() => (this.loading = false))
     }
   }
 }
 </script>
 
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
 a {
   color: #42b983;
 }

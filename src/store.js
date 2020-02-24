@@ -1,24 +1,35 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {},
+    userByFirebase: {},
+    userBySeisankun: {},
     status: false
   },
+  plugins: [
+    createPersistedState()
+  ],
   mutations: {
-    onAuthStateChanged (state, user) {
-      state.user = user // firebaseが返したユーザー情報
+    onFirebaseAuthStateChanged (state, user) {
+      state.userByFirebase = user // firebaseが返した会員情報
+    },
+    onSeisankunAuthStateChanged (state, user) {
+      state.userBySeisankun = user // seisankun_apiが返した会員情報
     },
     onUserStatusChanged (state, status) {
       state.status = status // ログインしてるかどうか true or false
     }
   },
   getters: {
-    user (state) {
-      return state.user
+    userByFirebase (state) {
+      return state.userByFirebase
+    },
+    userBySeisankun (state) {
+      return state.userBySeisankun
     },
     isSignedIn (state) {
       return state.status

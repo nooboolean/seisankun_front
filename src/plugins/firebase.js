@@ -1,6 +1,7 @@
 import firebase from 'firebase'
 import store from '../store'
 import router from '../router'
+import axios from 'axios'
 
 const firebaseConfig = {
   apiKey: process.env.FIRE_BASE_API_KEY,
@@ -20,8 +21,6 @@ export default {
   signupByEmailAndPassword (email, password) {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(() => {
-        // eslint-disable-next-line no-return-assign
-        alert('Success!')
         return firebase.auth().currentUser
       })
       .catch(error => {
@@ -32,7 +31,7 @@ export default {
   login (email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password).then(
       user => {
-        alert('Success!')
+        alert('ログイン！\n 引き続きサービスをご利用ください')
         router.push('/shumpay')
       },
       err => {
@@ -48,10 +47,30 @@ export default {
     firebase.auth().currentUser()
   },
   onAuth () {
-    firebase.auth().onAuthStateChanged(user => {
-      user = user || {}
-      store.commit('onAuthStateChanged', user)
-      store.commit('onUserStatusChanged', !!user.uid)
+    // eslint-disable-next-line no-undef
+    firebase.auth().onAuthStateChanged(async user => {
+      let userByFirebase = {}
+      // eslint-disable-next-line no-redeclare
+      let userBySeisankun = {}
+      // eslint-disable-next-line no-undef
+      if (user) {
+        // eslint-disable-next-line no-undef
+        userByFirebase = user
+        // eslint-disable-next-line no-self-assign
+        // eslint-disable-next-line no-undef
+        await axios
+          .get('' + process.env.SEISANKUN_API_BASE_URL + '/v1/user/info/' + user.uid + '')
+          .then(response => (userBySeisankun = response.data))
+          .catch(err => {
+            for (let key of Object.keys(err)) {
+              console.log(key)
+              console.log(err[key])
+            }
+          })
+      }
+      store.commit('onFirebaseAuthStateChanged', userByFirebase)
+      await store.commit('onSeisankunAuthStateChanged', userBySeisankun)
+      store.commit('onUserStatusChanged', !!userByFirebase.uid)
     })
   }
 }

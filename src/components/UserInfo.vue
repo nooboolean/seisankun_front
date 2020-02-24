@@ -9,7 +9,7 @@ export default {
   name: 'about',
   computed: {
     user () {
-      return this.$store.getters.user
+      return this.$store.getters.userBySeisankun
     }
   },
   components: {}

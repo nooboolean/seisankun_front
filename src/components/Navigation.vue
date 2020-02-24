@@ -11,7 +11,9 @@
         <div id="navbarExampleTransparentExample" class="navbar-menu" v-bind:class="{ 'is-active': menuActive }">
           <div class="navbar-start">
             <router-link class="navbar-item" to="/shumpay">しゅん</router-link>
-            <router-link class="navbar-item" to="/user_info">{{ userEmail }}</router-link>
+            <div v-if="userStatus" key="login" class="navbar-item">
+              <router-link class="navbar-item" to="/user_info">{{ userBySeisankun.name }}</router-link>
+            </div>
           </div>
           <div class="navbar-end">
             <Authentication />
@@ -44,13 +46,16 @@ export default {
     }
   },
   computed: {
-    userEmail () {
-      let userEmail = this.$store.getters.user.email
-      if (userEmail == null) {
-        return 'ログインしてください'
-      }
-      return this.$store.getters.user.email
+    userBySeisankun () {
+      return this.$store.getters.userBySeisankun
+    },
+    userStatus () {
+      return this.$store.getters.isSignedIn
     }
   }
 }
 </script>
+
+<style scoped>
+
+</style>
