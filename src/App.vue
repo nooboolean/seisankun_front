@@ -4,16 +4,20 @@
     <div id="container">
       <router-view/>
     </div>
-    <Footer/>
+    <div id="footer-container">
+      <Footer/>
+    </div>
   </div>
 </template>
 
 <script>
 import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
 export default {
   name: 'App',
   components: {
-    Navigation
+    Navigation,
+    Footer
   }
 }
 </script>
@@ -37,7 +41,11 @@ body {
 }
 
 #container {
-  margin:10px 5vw 0px 5vw;
+  margin:10px 0vw 0px 0vw;
+}
+
+#footer-container{
+  margin: 5px 5vw;
 }
 
 a{
@@ -77,6 +85,29 @@ button:hover{
   background-color: #fff;
   min-height: 500px;
   padding: 20px 10px;
-  border-radius: 5px;
+}
+
+.flex{
+  display: flex;
+}
+
+.overlay{
+  /*　要素を重ねた時の順番　*/
+  z-index:1;
+
+  /*　画面全体を覆う設定　*/
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,0.5);
+
+  /*　画面の中央に要素を表示させる設定　*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
 }
 </style>

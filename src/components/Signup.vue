@@ -1,23 +1,25 @@
 <template>
   <div class="signup">
     <h2>会員登録</h2>
-    <p>メールアドレス</p>
-    <input type="text" placeholder="Email" v-model="email">
-    <h3>パスワード</h3>
-    <input type="password" placeholder="Password" v-model="password">
-    <h3>名前</h3>
-    <input type="text" placeholder="Name" v-model="name">
-    <h3>年齢</h3>
-    <select v-model="genderSelected">
-      <option v-for="gender in genderOptions" v-bind:value="gender.value">
-        {{ gender.text }}
-      </option>
-    </select>
-    <h3>自己紹介文</h3>
-    <textarea placeholder="Profile" v-model="profile"></textarea>
-    <button @click="signUp">会員登録</button>
-    <p>すでに会員登録がお済みの方はこちら</p>
+    <div class="base-box">
+      <p>メールアドレス</p>
+      <input type="text" placeholder="Email" v-model="email">
+      <h3>パスワード</h3>
+      <input type="password" placeholder="Password" v-model="password">
+      <h3>名前</h3>
+      <input type="text" placeholder="Name" v-model="name">
+      <h3>年齢</h3>
+      <select v-model="genderSelected">
+        <option v-for="gender in genderOptions" v-bind:value="gender.value">
+          {{ gender.text }}
+        </option>
+      </select>
+      <h3>自己紹介文</h3>
+      <textarea placeholder="Profile" v-model="profile"></textarea>
+      <button @click="signUp">会員登録</button>
+      <p>すでに会員登録がお済みの方はこちら</p>
       <router-link to="/signin">ログイン</router-link>
+    </div>
   </div>
 </template>
 
@@ -89,5 +91,9 @@ a {
 input {
   margin: 10px 0;
   padding: 10px;
+}
+
+.base-box{
+  background-color: #1db8a3;
 }
 </style>

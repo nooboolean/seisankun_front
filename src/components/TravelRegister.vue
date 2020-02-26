@@ -1,19 +1,21 @@
 <template>
   <div>
     <h1 class="title">旅行作成</h1>
-    <p>旅行名</p>
-    <input type="text" placeholder="旅行名" v-model="travelName">
-    <h3>旅行開始日</h3>
-    <input type="text" placeholder="旅行開始日" v-model="travelStart">
-    <h3>旅行終了日</h3>
-    <input type="text" placeholder="旅行終了日" v-model="travelEnd">
-    <h3>プライベートモード</h3>
-    <select v-model="privateFlagSelected">
-      <option v-for="privateFlag in privateOptions" v-bind:value="privateFlag.value">
-        {{ privateFlag.text }}
-      </option>
-    </select>
-    <button @click="register">登録</button>
+    <div class="base-box">
+      <p>旅行名</p>
+      <input type="text" placeholder="旅行名" v-model="travelName">
+      <h3>旅行開始日</h3>
+      <input type="text" placeholder="旅行開始日" v-model="travelStart">
+      <h3>旅行終了日</h3>
+      <input type="text" placeholder="旅行終了日" v-model="travelEnd">
+      <h3>プライベートモード</h3>
+      <select v-model="privateFlagSelected">
+        <option v-for="privateFlag in privateOptions" v-bind:value="privateFlag.value">
+          {{ privateFlag.text }}
+        </option>
+      </select>
+      <button @click="register">登録</button>
+    </div>
   </div>
 </template>
 
@@ -58,9 +60,6 @@ export default {
 </script>
 
 <style scoped>
-a {
-  color: #42b983;
-}
 .signup {
   margin-top: 20px;
 
@@ -72,5 +71,9 @@ a {
 input {
   margin: 10px 0;
   padding: 10px;
+}
+
+.base-box{
+  background-color: #1db8a3;
 }
 </style>

@@ -8,6 +8,9 @@ import Top from '@/components/Top'
 import UserInfo from '@/components/UserInfo'
 import TravelInfo from '@/components/TravelInfo'
 import TravelRegister from '@/components/TravelRegister'
+import TravelEdit from '@/components/TravelEdit'
+import PaymentRegister from '@/components/PaymentRegister'
+import PaymentEdit from '@/components/PaymentEdit'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -47,6 +50,24 @@ let router = new Router({
       path: '/travel/register',
       name: 'TravelRegister',
       component: TravelRegister,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/travel/edit/:travel_id',
+      name: 'TravelEdit',
+      component: TravelEdit,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/payment/register/:travel_id',
+      name: 'PaymentRegister',
+      component: PaymentRegister,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/payment/edit/:payment_id/:travel_id',
+      name: 'PaymentEdit',
+      component: PaymentEdit,
       meta: { requiresAuth: true }
     },
     {

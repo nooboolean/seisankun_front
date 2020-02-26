@@ -56,7 +56,6 @@ export default {
   box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
 }
 
 .travel-info{
