@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Signup from '@/components/Signup'
 import Signin from '@/components/Signin'
 import Signout from '@/components/Signout'
-import TestRouter from '@/components/TestRouter'
 import Top from '@/components/Top'
 import UserInfo from '@/components/UserInfo'
 import TravelInfo from '@/components/TravelInfo'
@@ -22,13 +21,6 @@ let router = new Router({
       redirect: 'signin'
     },
     {
-      path: '/test',
-      name: 'TestRouter',
-      // eslint-disable-next-line no-undef
-      component: TestRouter,
-      meta: { requiresAuth: true }
-    },
-    {
       path: '/top',
       name: 'Top',
       component: Top,
@@ -41,7 +33,7 @@ let router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: '/travel/info/:travel_id',
+      path: '/travel/info/:travel_hash_id',
       name: 'TravelInfo',
       component: TravelInfo,
       meta: { requiresAuth: true }
@@ -53,19 +45,19 @@ let router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: '/travel/edit/:travel_id',
+      path: '/travel/edit/:travel_hash_id',
       name: 'TravelEdit',
       component: TravelEdit,
       meta: { requiresAuth: true }
     },
     {
-      path: '/payment/register/:travel_id',
+      path: '/payment/register/:travel_hash_id',
       name: 'PaymentRegister',
       component: PaymentRegister,
       meta: { requiresAuth: true }
     },
     {
-      path: '/payment/edit/:payment_id/:travel_id',
+      path: '/payment/edit/:payment_id/:travel_hash_id',
       name: 'PaymentEdit',
       component: PaymentEdit,
       meta: { requiresAuth: true }

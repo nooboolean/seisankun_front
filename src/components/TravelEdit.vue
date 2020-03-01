@@ -50,24 +50,24 @@
       </div> -->
       <div class="edit-area">
         <button @click="openDeleteModal">削除</button>
-        <button @click="edit">更新</button>
+        <button @click="edit(travelId)">更新</button>
       </div>
 
       <div class="edit-area">
         <h3>参加者</h3>
         <ul class="flex traveler-list">
           <li class="traveler-name" v-for="traveler in travelers">
-            <p class="traveler-name-name">{{ traveler.name }}</p> <button class="traveler-delete-button" @click="deleteTraveler(traveler.id, traveler.name)">削除</button>
+            <p class="traveler-name-name">{{ traveler.name }}</p> <button class="traveler-delete-button" @click="deleteTraveler(travelId, traveler.id, traveler.name)">削除</button>
           </li>
         </ul>
       </div>
-      <button @click="cancel">キャンセル</button>
+      <button @click="cancel(travelId)">キャンセル</button>
       </div>
       <div class="overlay" v-show="showDeleteModal">
         <p>本当に削除しますか？</p>
         <div class="modal-button">
           <button @click="closeDeleteModale">いいえ</button>
-          <button @click="deleteTravel">はい</button>
+          <button @click="deleteTravel(travelId)">はい</button>
         </div>
       </div>
   </div>
@@ -91,6 +91,7 @@ export default {
       },
       ja:ja,
       showDeleteModal: false,
+      travelId: '',
       travelName: '',
       travelStart: '',
       travelEnd: '',
@@ -103,20 +104,32 @@ export default {
     }
   },
   created () {
-    this.getTravel()
-    this.getTraveler()
+    this.getTravelId()
   },
   methods: {
+    getTravelId () {
+      this.$seisankunApi.get('/v1/travel/id/' + this.$route.params.travel_hash_id + '')
+        .then(response => {
+          this.getTravel(response.data)
+          this.getTraveler(response.data)
+        })
+        .catch(err => {
+          for (let key of Object.keys(err)) {
+            console.log(key)
+            console.log(err[key])
+          }
+        })
+    },
     customformat (value) {
       return moment(value).format('YYYY年 MM月 DD日')
     },
-    cancel: function () {
-      this.$router.push('/travel/info/' + this.$route.params.travel_id + '')
+    cancel: function (travelId) {
+      this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
     },
-    edit: function () {
+    edit: function (travelId) {
       let userId = this.$store.getters.userBySeisankun.id
       this.$seisankunApi.put('/v1/travel/info/update', {
-        id: this.$route.params.travel_id,
+        id: travelId,
         name: this.travelName,
         travelStart: moment(this.travelStart).format('YYYY-MM-DD'),
         travelEnd: moment(this.travelEnd).format('YYYY-MM-DD'),
@@ -124,7 +137,7 @@ export default {
         updatedBy: userId
       })
         .then(response => {
-          this.$router.push('/travel/info/' + response.data.id + '')
+          this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
         })
         .catch(err => {
           for (let key of Object.keys(err)) {
@@ -133,18 +146,18 @@ export default {
           }
         })
     },
-    deleteTraveler (secessionUserId, secessionUserName) {
+    deleteTraveler (travelId, secessionUserId, secessionUserName) {
       let userId = this.$store.getters.userBySeisankun.id
       this.$seisankunApi.delete('/v1/travel/secession', {
         data: {
-          travelId: this.$route.params.travel_id,
+          travelId: travelId,
           userId: secessionUserId,
           deletedBy: userId
         }
       })
         .then(response => {
           alert('' + secessionUserName + 'さんを\n「' + this.travelName + '」から\n削除しました')
-          this.$router.push('/travel/info/' + this.$route.params.travel_id + '')
+          this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
         })
         .catch(err => {
           for (let key of Object.keys(err)) {
@@ -153,9 +166,10 @@ export default {
           }
         })
     },
-    getTravel () {
-      this.$seisankunApi.get('/v1/travel/info/' + this.$route.params.travel_id + '')
+    getTravel (travelId) {
+      this.$seisankunApi.get('/v1/travel/info/' + travelId + '')
         .then(response => {
+          this.travelId = response.data.id
           this.travelName = response.data.name
           this.travelStart = response.data.travelStart
           this.travelEnd = response.data.travelEnd
@@ -168,8 +182,8 @@ export default {
           }
         })
     },
-    getTraveler () {
-      this.$seisankunApi.get('/v1/traveler/' + this.$route.params.travel_id + '')
+    getTraveler (travelId) {
+      this.$seisankunApi.get('/v1/traveler/' + travelId + '')
         .then(response => {
           this.travelers = response.data
         })
@@ -180,16 +194,16 @@ export default {
           }
         })
     },
-    softDeleteTravel () {
+    softDeleteTravel (travelId) {
       let userId = this.$store.getters.userBySeisankun.id
       this.$seisankunApi.delete('/v1/travel/delete/1', {
         data: {
-          id: this.$route.params.travel_id,
+          id: travelId,
           updatedBy: userId
         }
       })
         .then(response => {
-          this.$router.push('/travel/info/' + this.$route.params.travel_id + '')
+          this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
         })
         .catch(err => {
           for (let key of Object.keys(err)) {
@@ -198,11 +212,11 @@ export default {
           }
         })
     },
-    deleteTravel () {
+    deleteTravel (travelId) {
       let userId = this.$store.getters.userBySeisankun.id
       this.$seisankunApi.delete('/v1/travel/delete/0', {
         data: {
-          id: this.$route.params.travel_id,
+          id: travelId,
           updatedBy: userId
         }
       })

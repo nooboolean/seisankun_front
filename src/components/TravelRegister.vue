@@ -96,7 +96,7 @@ export default {
       })
         .then(async response => {
           await this.joinTravel(response.data.id, userId)
-          await this.$router.push('/travel/info/' + response.data.id + '')
+          await this.$router.push('/travel/info/' + response.data.hashId + '')
         })
         .catch(err => {
           for (let key of Object.keys(err)) {

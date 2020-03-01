@@ -26,28 +26,19 @@ export default {
       payerSelected: 0,
       payerOptions: [],
       title: '',
-      amount: ''
+      amount: '',
+      travelId: ''
     }
   },
   created () {
-    this.getTraveler()
+    this.getTravelId()
   },
   methods: {
-    cancel: function () {
-      this.$router.push('/travel/info/' + this.$route.params.travel_id + '')
-    },
-    register: function () {
-      let userId = this.$store.getters.userBySeisankun.id
-      this.$seisankunApi.post('/v1/payment/register', {
-        travelId: this.$route.params.travel_id,
-        payerId: this.payerSelected,
-        title: this.title,
-        amount: this.amount,
-        createdBy: userId,
-        updatedBy: userId
-      })
+    getTravelId () {
+      this.$seisankunApi.get('/v1/travel/id/' + this.$route.params.travel_hash_id + '')
         .then(response => {
-          this.$router.push('/travel/info/' + response.data.travelId + '')
+          this.travelId = response.data
+          this.getTraveler(response.data)
         })
         .catch(err => {
           for (let key of Object.keys(err)) {
@@ -56,8 +47,31 @@ export default {
           }
         })
     },
-    getTraveler () {
-      this.$seisankunApi.get('/v1/traveler/' + this.$route.params.travel_id + '')
+    cancel: function () {
+      this.$router.push('/travel/info/' + this.travelId + '')
+    },
+    register: function () {
+      let userId = this.$store.getters.userBySeisankun.id
+      this.$seisankunApi.post('/v1/payment/register', {
+        travelId: this.travelId,
+        payerId: this.payerSelected,
+        title: this.title,
+        amount: this.amount,
+        createdBy: userId,
+        updatedBy: userId
+      })
+        .then(response => {
+          this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
+        })
+        .catch(err => {
+          for (let key of Object.keys(err)) {
+            console.log(key)
+            console.log(err[key])
+          }
+        })
+    },
+    getTraveler (travelId) {
+      this.$seisankunApi.get('/v1/traveler/' + travelId + '')
         .then(response => {
           this.payerOptions = response.data
         })

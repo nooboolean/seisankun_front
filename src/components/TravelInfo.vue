@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-link class="back-top" to="/top"><< 旅行一覧</router-link>
-    <router-link v-bind:to="{ name : 'TravelEdit', params : { travel_id: travel.id }}"><img class="edit-button" src="@/assets/edit-button.png"></router-link>
+    <router-link v-bind:to="{ name : 'TravelEdit', params : { travel_hash_id: travel.hashId }}"><img class="edit-button" src="@/assets/edit-button.png"></router-link>
     <div class="travel-header">
       <p class="title-label">旅行名</p>
       <h1 class="title">{{ travel.name }}</h1>
@@ -28,7 +28,7 @@
           </div>
           <div class="payment-list-right flex">
             <p class="payment-amount">{{ paymentDisplay(payment.payment.amount) }}</p>
-            <router-link v-bind:to="{ name : 'PaymentEdit', params : { payment_id: payment.payment.id ,travel_id: travel.id }}"><img class="payment-edit-button" src="@/assets/edit-button.png"></router-link>
+            <router-link v-bind:to="{ name : 'PaymentEdit', params : { payment_id: payment.payment.id ,travel_id: travel.hashId }}"><img class="payment-edit-button" src="@/assets/edit-button.png"></router-link>
           </div>
         </li>
       </ul>
@@ -48,7 +48,7 @@ export default {
     }
   },
   created () {
-    this.getTravel()
+    this.getTravelId()
   },
   methods: {
     paymentDisplay (payment) {
@@ -57,8 +57,20 @@ export default {
     customformat (value) {
       return moment(value).format('YYYY年 MM月 DD日')
     },
-    getTravel () {
-      this.$seisankunApi.get('/v1/travel/info/' + this.$route.params.travel_id + '')
+    getTravelId () {
+      this.$seisankunApi.get('/v1/travel/id/' + this.$route.params.travel_hash_id + '')
+        .then(response => {
+          this.getTravel(response.data)
+        })
+        .catch(err => {
+          for (let key of Object.keys(err)) {
+            console.log(key)
+            console.log(err[key])
+          }
+        })
+    },
+    getTravel (travelId) {
+      this.$seisankunApi.get('/v1/travel/info/' + travelId + '')
         .then(response => {
           this.travel = response.data
           this.getTraveler()
@@ -96,7 +108,7 @@ export default {
         })
     },
     paymentRegister () {
-      this.$router.push('/payment/register/' + this.travel.id + '')
+      this.$router.push('/payment/register/' + this.$route.params.travel_hash_id + '')
     }
   },
   computed: {

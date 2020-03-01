@@ -3,7 +3,7 @@
     <h1 class="title">あなたの旅行一覧</h1>
     <ul class="base-box">
       <li class="travel-comtainer" v-for="travel in travels">
-        <router-link v-bind:to="{ name : 'TravelInfo', params : { travel_id: travel.travel.id }}">
+        <router-link v-bind:to="{ name : 'TravelInfo', params : { travel_hash_id: travel.travel.hashId }}">
           <ul class="travel">
             <li class="travel-info"><span class="travel-label">旅行名　：</span> <span class="travel-info-detail">{{ travel.travel.name }}</span></li>
             <li class="travel-info flex traveler-container"><span class="travel-label">参加者　：</span>

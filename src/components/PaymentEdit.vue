@@ -12,7 +12,7 @@
       </select>
       <h3>料金</h3>
       <input type="text" placeholder="例)1000" v-model="amount">円
-      <button @click="cancel">キャンセル</button>
+      <button @click="cancel(travelId)">キャンセル</button>
       <button @click="openDeleteModal">削除</button>
       <button @click="edit">更新</button>
     </div>
@@ -35,16 +35,30 @@ export default {
       payerSelected: 0,
       payerOptions: [],
       title: '',
-      amount: ''
+      amount: '',
+      travelId: ''
     }
   },
   created () {
-    this.getTraveler()
-    this.getPaymentData()
+    this.getTravelId()
   },
   methods: {
     cancel: function () {
-      this.$router.push('/travel/info/' + this.$route.params.travel_id + '')
+      this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
+    },
+    getTravelId () {
+      this.$seisankunApi.get('/v1/travel/id/' + this.$route.params.travel_hash_id + '')
+        .then(response => {
+          this.travelId = response.data
+          this.getTraveler(response.data)
+          this.getPaymentData(response.data)
+        })
+        .catch(err => {
+          for (let key of Object.keys(err)) {
+            console.log(key)
+            console.log(err[key])
+          }
+        })
     },
     edit: function () {
       let userId = this.$store.getters.userBySeisankun.id
@@ -56,7 +70,7 @@ export default {
         updatedBy: userId
       })
         .then(response => {
-          this.$router.push('/travel/info/' + response.data.travelId + '')
+          this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
         })
         .catch(err => {
           for (let key of Object.keys(err)) {
@@ -65,8 +79,8 @@ export default {
           }
         })
     },
-    getTraveler () {
-      this.$seisankunApi.get('/v1/traveler/' + this.$route.params.travel_id + '')
+    getTraveler (travelId) {
+      this.$seisankunApi.get('/v1/traveler/' + travelId + '')
         .then(response => {
           this.payerOptions = response.data
         })
@@ -100,7 +114,7 @@ export default {
         }
       })
         .then(response => {
-          this.$router.push('/travel/info/' + this.$route.params.travel_id + '')
+          this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
         })
         .catch(err => {
           for (let key of Object.keys(err)) {
