@@ -42,8 +42,4 @@ export default {
   justify-content: flex-end;
   align-items: center
 }
-input {
-  margin: 10px 0;
-  padding: 10px;
-}
 </style>

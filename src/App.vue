@@ -61,6 +61,13 @@ li{
   list-style: none;
 }
 
+input {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #179585;
+}
+
 button{
   padding: 5px 15px;
   border-radius: 5px;
@@ -92,10 +99,8 @@ button:hover{
 }
 
 .overlay{
-  /*　要素を重ねた時の順番　*/
   z-index:1;
 
-  /*　画面全体を覆う設定　*/
   position:fixed;
   top:0;
   left:0;
@@ -103,11 +108,28 @@ button:hover{
   height:100%;
   background-color:rgba(0,0,0,0.5);
 
-  /*　画面の中央に要素を表示させる設定　*/
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 
+}
+.datepicker-calendar{
+  color: #2c3e50;
+  width: 100% !important;
+}
+.day{
+  color: #1a4b44;
+}
+.day:hover{
+  border: 1px solid #cf5271 !important;
+}
+.highlighted{
+  color: #1db8a3 !important;
+  background: none !important;
+}
+.selected{
+  background: #cf5271 !important;
+  color: #fff !important;
 }
 </style>

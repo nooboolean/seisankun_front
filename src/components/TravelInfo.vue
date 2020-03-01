@@ -6,23 +6,26 @@
       <p class="title-label">旅行名</p>
       <h1 class="title">{{ travel.name }}</h1>
       <ul class="flex travel-info-box">
-        <li class="travel-detail"><p class="travel-label">旅行開始日</p>{{ travel.travelStart }}</li>
-        <li class="travel-detail"><p class="travel-label">旅行終了日</p>{{ travel.travelEnd }}</li>
+        <li class="travel-detail"><p class="travel-label">旅行開始日</p>{{ customformat(travel.travelStart) }}</li>
+        <li class="travel-detail"><p class="travel-label">旅行終了日</p>{{ customformat(travel.travelEnd) }}</li>
       </ul>
       <ul class="traveler-container flex">
         <li class="traveler-label">参加者:</li>
-        <li class="traveler-name" v-for="traveler in travelers">
-          {{ traveler.name }}/
-        </li>
+        <div class="flex traveler-container">
+          <li class="traveler-name" v-for="traveler in travelers">
+            {{ traveler.name }}/
+          </li>
+        </div>
       </ul>
     </div>
     <div class="base-box">
       <button class="payment-button" @click="paymentRegister">支払いの追加</button>
       <ul class="payment-container flex">
         <li class="payment-amount" v-for="payment in payments">
-          {{ payment.payerId }}が
-          {{ payment.amount }}円支払った
-          <router-link v-bind:to="{ name : 'PaymentEdit', params : { payment_id: payment.id ,travel_id: travel.id }}"><img class="edit-button" src="@/assets/edit-button.png"></router-link>
+          {{ payment.payment.title }}
+          {{ payment.user.name }}が
+          {{ payment.payment.amount }}円支払った
+          <router-link v-bind:to="{ name : 'PaymentEdit', params : { payment_id: payment.payment.id ,travel_id: travel.id }}"><img class="edit-button" src="@/assets/edit-button.png"></router-link>
         </li>
       </ul>
     </div>
@@ -30,6 +33,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'TravelInfo',
   data () {
@@ -43,6 +47,9 @@ export default {
     this.getTravel()
   },
   methods: {
+    customformat (value) {
+      return moment(value).format('YYYY年 MM月 DD日')
+    },
     getTravel () {
       this.$seisankunApi.get('/v1/travel/info/' + this.$route.params.travel_id + '')
         .then(response => {
@@ -148,5 +155,10 @@ export default {
   font-size: 4vw;
   color: #2c3e50;
   left: 3vw;
+}
+
+.traveler-container{
+  flex-wrap: wrap;
+  align-content: flex-start;
 }
 </style>

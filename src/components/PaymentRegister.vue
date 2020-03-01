@@ -2,6 +2,8 @@
   <div>
     <h1 class="title">支払いの追加</h1>
     <div class="base-box">
+      <h3>タイトル</h3>
+      <input type="text" placeholder="例)宿泊代" v-model="title">
       <h3>立て替え者</h3>
       <select v-model="payerSelected">
         <option v-for="payer in payerOptions" v-bind:value="payer.id">
@@ -23,6 +25,7 @@ export default {
     return {
       payerSelected: 0,
       payerOptions: [],
+      title: '',
       amount: ''
     }
   },
@@ -38,6 +41,7 @@ export default {
       this.$seisankunApi.post('/v1/payment/register', {
         travelId: this.$route.params.travel_id,
         payerId: this.payerSelected,
+        title: this.title,
         amount: this.amount,
         createdBy: userId,
         updatedBy: userId

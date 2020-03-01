@@ -2,6 +2,8 @@
   <div>
     <h1 class="title">お支払い編集</h1>
     <div class="base-box">
+      <h3>タイトル</h3>
+      <input type="text" placeholder="例)宿泊代" v-model="title">
       <h3>立て替え者</h3>
       <select v-model="payerSelected">
         <option v-for="payer in payerOptions" v-bind:value="payer.id">
@@ -32,6 +34,7 @@ export default {
       showDeleteModal: false,
       payerSelected: 0,
       payerOptions: [],
+      title: '',
       amount: ''
     }
   },
@@ -48,6 +51,7 @@ export default {
       this.$seisankunApi.put('/v1/payment/data/update', {
         id: this.$route.params.payment_id,
         payerId: this.payerSelected,
+        title: this.title,
         amount: this.amount,
         updatedBy: userId
       })
@@ -76,6 +80,7 @@ export default {
     getPaymentData () {
       this.$seisankunApi.get('/v1/payment/info/' + this.$route.params.payment_id + '')
         .then(response => {
+          this.title = response.data.title
           this.payerSelected = response.data.payerId
           this.amount = response.data.amount
         })

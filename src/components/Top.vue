@@ -5,9 +5,14 @@
       <li class="travel-comtainer" v-for="travel in travels">
         <router-link v-bind:to="{ name : 'TravelInfo', params : { travel_id: travel.id }}">
           <ul class="travel">
-            <li class="travel-info"><span class="travel-label">旅行名：</span> <span class="travel-info-detail">{{ travel.name }}</span></li>
-            <li class="travel-info"><span class="travel-label">参加者：</span> <span class="travel-info-detail">あああ</span></li>
-            <li class="travel-info"><span class="travel-label">旅行開始：</span> <span class="travel-info-detail">{{ travel.travelStart }}</span></li>
+            <li class="travel-info"><span class="travel-label">旅行名　：</span> <span class="travel-info-detail">{{ travel.name }}</span></li>
+            <li class="travel-info"><span class="travel-label">参加者　：</span> <span class="travel-info-detail">あああ</span></li>
+            <li class="travel-info">
+              <span class="travel-label">旅行期間：</span>
+              <span class="travel-info-detail">{{ customformat(travel.travelStart) }}</span>
+              <span class="travel-info-detail travel-between">~</span>
+              <span class="travel-info-detail">{{ customformat(travel.travelStart) }}</span>
+            </li>
           </ul>
         </router-link>
        </li>
@@ -20,6 +25,7 @@
 
 <script>
 import Firebase from '../plugins/firebase'
+import moment from 'moment'
 export default {
   name: 'Top',
   data () {
@@ -31,6 +37,9 @@ export default {
     this.getTravels()
   },
   methods: {
+    customformat (value) {
+      return moment(value).format('YYYY年 MM月 DD日')
+    },
     getTravels () {
       this.$seisankunApi.get('/v1/travel/list/' + this.$store.getters.userBySeisankun.id + '')
         .then(response => {
@@ -56,6 +65,7 @@ export default {
   box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
+  font-size: 3vw;
 }
 
 .travel-info{
@@ -81,5 +91,8 @@ export default {
   background-color: #e4640f;
   border-radius: 100%;
   box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.4);
+}
+.travel-between{
+  margin: 0 10px;
 }
 </style>
