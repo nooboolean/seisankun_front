@@ -21,11 +21,15 @@
     <div class="base-box">
       <button class="payment-button" @click="paymentRegister">支払いの追加</button>
       <ul class="payment-container flex">
-        <li class="payment-amount" v-for="payment in payments">
-          {{ payment.payment.title }}
-          {{ payment.user.name }}が
-          {{ payment.payment.amount }}円支払った
-          <router-link v-bind:to="{ name : 'PaymentEdit', params : { payment_id: payment.payment.id ,travel_id: travel.id }}"><img class="edit-button" src="@/assets/edit-button.png"></router-link>
+        <li class="payment-list flex" v-for="payment in payments">
+          <div class="payment-list-left flex">
+            <p class="payment-title">{{ payment.payment.title }}</p>
+            <p class="payer">{{ payment.user.name }}が立替え</p>
+          </div>
+          <div class="payment-list-right flex">
+            <p class="payment-amount">{{ paymentDisplay(payment.payment.amount) }}</p>
+            <router-link v-bind:to="{ name : 'PaymentEdit', params : { payment_id: payment.payment.id ,travel_id: travel.id }}"><img class="payment-edit-button" src="@/assets/edit-button.png"></router-link>
+          </div>
         </li>
       </ul>
     </div>
@@ -47,6 +51,9 @@ export default {
     this.getTravel()
   },
   methods: {
+    paymentDisplay (payment) {
+      return payment.toLocaleString('ja-JP', {"style":"currency", "currency":"JPY"});
+    },
     customformat (value) {
       return moment(value).format('YYYY年 MM月 DD日')
     },
@@ -132,10 +139,11 @@ export default {
   justify-content: flex-start;
 }
 .traveler-name{
-  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .payment-button{
+  font-size: 4vw;
   width:100%;
   height: 50px;
 }
@@ -146,10 +154,32 @@ export default {
   margin-top: 10px;
 }
 
-.payment-amount{
+.payment-list{
+  padding-bottom: 20px;
   border-bottom: 1px solid #2c3e50;
   margin-bottom: 20px;
+  align-items: center;
 }
+
+.payment-list-left{
+  flex-direction: column;
+  text-align: left;
+}
+
+.payment-list-right{
+
+}
+
+.payment-edit-button{
+  right: 6vw;
+  width: 6vw;
+}
+
+.payment-amount{
+  font-size: 5vw;
+  margin-right: 6vw;
+}
+
 .back-top{
   position: absolute;
   font-size: 4vw;
@@ -160,5 +190,10 @@ export default {
 .traveler-container{
   flex-wrap: wrap;
   align-content: flex-start;
+}
+
+.payer{
+  color: #1db8a3;
+  font-size: 3vw;
 }
 </style>

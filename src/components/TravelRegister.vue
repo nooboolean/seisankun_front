@@ -82,14 +82,14 @@ export default {
       return moment(value).format('YYYY年 MM月 DD日')
     },
     cancel: function () {
-      this.$router.push('/travel/info/' + this.$route.params.travel_id + '')
+      this.$router.push('/top')
     },
     register: function () {
       let userId = this.$store.getters.userBySeisankun.id
       this.$seisankunApi.post('/v1/travel/register', {
         name: this.travelName,
-        travelStart: this.travelStart,
-        travelEnd: this.travelEnd,
+        travelStart: moment(this.travelStart).format('YYYY-MM-DD'),
+        travelEnd: moment(this.travelEnd).format('YYYY-MM-DD'),
         privateFlag: this.privateFlagSelected,
         createdBy: userId,
         updatedBy: userId

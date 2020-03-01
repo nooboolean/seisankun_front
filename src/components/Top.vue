@@ -3,15 +3,21 @@
     <h1 class="title">あなたの旅行一覧</h1>
     <ul class="base-box">
       <li class="travel-comtainer" v-for="travel in travels">
-        <router-link v-bind:to="{ name : 'TravelInfo', params : { travel_id: travel.id }}">
+        <router-link v-bind:to="{ name : 'TravelInfo', params : { travel_id: travel.travel.id }}">
           <ul class="travel">
-            <li class="travel-info"><span class="travel-label">旅行名　：</span> <span class="travel-info-detail">{{ travel.name }}</span></li>
-            <li class="travel-info"><span class="travel-label">参加者　：</span> <span class="travel-info-detail">あああ</span></li>
+            <li class="travel-info"><span class="travel-label">旅行名　：</span> <span class="travel-info-detail">{{ travel.travel.name }}</span></li>
+            <li class="travel-info flex traveler-container"><span class="travel-label">参加者　：</span>
+              <span class="travel-info-detail flex traveler">
+                <li class="traveler-name" v-for="user in travel.user">
+                  {{ user.name }}/
+                </li>
+              </span>
+            </li>
             <li class="travel-info">
               <span class="travel-label">旅行期間：</span>
-              <span class="travel-info-detail">{{ customformat(travel.travelStart) }}</span>
+              <span class="travel-info-detail">{{ customformat(travel.travel.travelStart) }}</span>
               <span class="travel-info-detail travel-between">~</span>
-              <span class="travel-info-detail">{{ customformat(travel.travelStart) }}</span>
+              <span class="travel-info-detail">{{ customformat(travel.travel.travelStart) }}</span>
             </li>
           </ul>
         </router-link>
@@ -94,5 +100,15 @@ export default {
 }
 .travel-between{
   margin: 0 10px;
+}
+.traveler-container{
+  text-align: left;
+  align-content: flex-start;
+}
+.traveler{
+  align-content: flex-start;
+}
+.traveler-name{
+  /* margin-right: 1vw; */
 }
 </style>
