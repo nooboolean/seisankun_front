@@ -10,6 +10,16 @@
           {{ payer.name }}
         </option>
       </select>
+      <h3>借り手</h3>
+      <li v-for="traveler in travelers">
+        <input
+        :id="'traveler' + traveler.id"
+        type="checkbox"
+        :value="traveler.id"
+        v-model="borrowers"
+        />
+        <label :for="'traveler' + traveler.id">{{ traveler.name }}</label>
+      </li>
       <h3>料金</h3>
       <input type="text" placeholder="例)1000" v-model="amount">円
       <button @click="cancel">キャンセル</button>
@@ -23,9 +33,11 @@ export default {
   name: 'PaymentRegister',
   data () {
     return {
+      travelers: [],
       payerSelected: 0,
       payerOptions: [],
       title: '',
+      borrowers: [],
       amount: '',
       travelId: ''
     }
@@ -48,7 +60,7 @@ export default {
         })
     },
     cancel: function () {
-      this.$router.push('/travel/info/' + this.travelId + '')
+      this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
     },
     register: function () {
       let userId = this.$store.getters.userBySeisankun.id
@@ -56,6 +68,7 @@ export default {
         travelId: this.travelId,
         payerId: this.payerSelected,
         title: this.title,
+        borrowers: this.borrowers,
         amount: this.amount,
         createdBy: userId,
         updatedBy: userId
@@ -74,6 +87,10 @@ export default {
       this.$seisankunApi.get('/v1/traveler/' + travelId + '')
         .then(response => {
           this.payerOptions = response.data
+          this.travelers = response.data
+          response.data.forEach(element => {
+            this.borrowers.push(element.id)
+          })
         })
         .catch(err => {
           for (let key of Object.keys(err)) {
