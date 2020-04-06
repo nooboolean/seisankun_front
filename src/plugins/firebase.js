@@ -28,12 +28,13 @@ export default {
         alert(error.message)
       })
   },
-  login (email, password) {
+  login (email, password, redirectUrl) {
     firebase.auth().signInWithEmailAndPassword(email, password).then(
       async user => {
         await this.onAuth()
         await alert('ログイン！\n 引き続きサービスをご利用ください')
-        await router.push('/top')
+        await store.commit('setRedirectUrl', null)
+        await router.push(redirectUrl)
       },
       err => {
         console.log('エラー処理')
@@ -43,6 +44,7 @@ export default {
   },
   logout () {
     firebase.auth().signOut()
+    store.commit('setRedirectUrl', null)
   },
   getCurrentUser () {
     firebase.auth().currentUser()

@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     userByFirebase: {},
     userBySeisankun: {},
-    status: false
+    status: false,
+    redirectUrl: null
   },
   plugins: [
     createPersistedState()
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     onUserStatusChanged (state, status) {
       state.status = status // ログインしてるかどうか true or false
+    },
+    setRedirectUrl (state, redirectUrl) {
+      state.redirectUrl = redirectUrl
     }
   },
   getters: {
@@ -33,6 +37,9 @@ export default new Vuex.Store({
     },
     isSignedIn (state) {
       return state.status
+    },
+    redirectUrl (state) {
+      return state.redirectUrl
     }
   }
 })

@@ -47,14 +47,16 @@
       </ul>
       <h2 class="list-title">お金の貸し借り</h2>
       <ul class="borrow-relation-container flex">
-        <li class="payment-borrow-list flex" v-for="borrowRelation in borrowRelationList">
-          <div class="payment-borrow-list-left flex">
-            <p>{{ borrowRelation.name }}</p>
-          </div>
-          <div class="payment-borrow-list-right flex">
-            <p v-if="isPositiveSign(borrowRelation.borrowMoney)" class="borrow-money blue">{{ paymentDisplay(borrowRelation.borrowMoney) }}</p>
-            <p v-else class="borrow-money red">{{ paymentDisplay(borrowRelation.borrowMoney) }}</p>
-            <router-link v-bind:to="{ name : 'showBorrowHistory', params : { borrower_id: borrowRelation.userId }}"><img class="payment-edit-button" src="@/assets/list_image.png"></router-link>
+        <li v-for="borrowRelation in borrowRelationList">
+          <div v-if="borrowRelation.borrowMoney !== 0" class="payment-borrow-list flex">
+            <div class="payment-borrow-list-left flex">
+              <p>{{ borrowRelation.name }}</p>
+            </div>
+            <div class="payment-borrow-list-right flex">
+              <p v-if="isPositiveSign(borrowRelation.borrowMoney)" class="borrow-money blue">{{ paymentDisplay(borrowRelation.borrowMoney) }}</p>
+              <p v-else class="borrow-money red">{{ paymentDisplay(borrowRelation.borrowMoney) }}</p>
+              <router-link v-bind:to="{ name : 'showBorrowHistory', params : { borrower_id: borrowRelation.userId }}"><img class="payment-edit-button" src="@/assets/list_image.png"></router-link>
+            </div>
           </div>
         </li>
       </ul>

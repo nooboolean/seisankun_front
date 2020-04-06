@@ -21,10 +21,19 @@ export default {
       password: ''
     }
   },
+  created () {
+    if (this.$store.getters.redirectUrl === null) {
+      let redirectUrl = this.$route.query.redirectUrl
+      if (typeof redirectUrl === 'undefined') {
+        redirectUrl = '/top'
+      }
+      this.$store.commit('setRedirectUrl', redirectUrl)
+    }
+  },
   methods: {
     signIn: async function () {
       await Firebase.onAuth()
-      Firebase.login(this.email, this.password)
+      await Firebase.login(this.email, this.password, this.$store.getters.redirectUrl)
     }
   }
 }

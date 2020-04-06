@@ -63,7 +63,7 @@ export default {
           this.$store.commit('onSeisankunAuthStateChanged', response.data)
           this.$store.commit('onUserStatusChanged', !!userByFirebase.uid)
           alert('会員登録完了！\n 引き続きサービスをご利用ください')
-          this.$router.push('/top')
+          this.$router.push(this.$store.getters.redirectUrl)
         })
         .catch(err => {
           for (let key of Object.keys(err)) {
