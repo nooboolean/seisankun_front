@@ -20,46 +20,56 @@
     </div>
     <div class="base-box">
       <button class="payment-button" @click="paymentRegister">支払いの追加</button>
-      <h2 class="list-title">支払いリスト</h2>
-      <ul class="payment-container flex">
-        <li class="payment-list flex" v-for="payment in payments">
-          <div class="payment-list-left flex">
-            <p class="payment-title">{{ payment.payment.title }}</p>
-            <p class="payer">{{ payment.user.name }}が立替え</p>
-          </div>
-          <div class="payment-list-right flex">
-            <p class="payment-amount">{{ paymentDisplay(payment.payment.amount) }}</p>
-            <router-link v-bind:to="{ name : 'PaymentEdit', params : { payment_id: payment.payment.id ,travel_id: travel.hashId }}"><img class="payment-edit-button" src="@/assets/edit-button.png"></router-link>
-          </div>
-        </li>
-      </ul>
-      <h2 class="list-title">清算リスト</h2>
-      <ul class="borrow-relation-container flex">
-        <li class="payment-borrow-list flex" v-for="seisanRecord in seisanList">
-          <div class="payment-borrow-list-left flex">
-            <p>{{ seisanRecord.borrower }}　</p> →
-            <p>　{{ seisanRecord.lender }}</p>
-          </div>
-          <div class="payment-borrow-list-right flex">
-            <p class="borrow-money blue">{{ paymentDisplay(seisanMoneyDisplay(seisanRecord.borrowMoney)) }}</p>
-          </div>
-        </li>
-      </ul>
-      <h2 class="list-title">お金の貸し借り</h2>
-      <ul class="borrow-relation-container flex">
-        <li v-for="borrowRelation in borrowRelationList">
-          <div v-if="borrowRelation.borrowMoney !== 0" class="payment-borrow-list flex">
+      <div v-if="payments[0]">
+        <h2 class="list-title">支払いリスト</h2>
+        <ul class="payment-container flex">
+          <li class="payment-list flex" v-for="payment in payments">
+            <div class="payment-list-left flex">
+              <p class="payment-title">{{ payment.payment.title }}</p>
+              <p class="payer">{{ payment.user.name }}が立替え</p>
+            </div>
+            <div class="payment-list-right flex">
+              <p class="payment-amount">{{ paymentDisplay(payment.payment.amount) }}</p>
+              <router-link v-bind:to="{ name : 'PaymentEdit', params : { payment_id: payment.payment.id ,travel_id: travel.hashId }}"><img class="payment-edit-button" src="@/assets/edit-button.png"></router-link>
+            </div>
+          </li>
+        </ul>
+        <h2 class="list-title">清算リスト</h2>
+        <ul class="borrow-relation-container flex">
+          <li class="payment-borrow-list flex" v-for="seisanRecord in seisanList">
             <div class="payment-borrow-list-left flex">
-              <p>{{ borrowRelation.name }}</p>
+              <p>{{ seisanRecord.borrower }}　</p> →
+              <p>　{{ seisanRecord.lender }}</p>
             </div>
             <div class="payment-borrow-list-right flex">
-              <p v-if="isPositiveSign(borrowRelation.borrowMoney)" class="borrow-money blue">{{ paymentDisplay(borrowRelation.borrowMoney) }}</p>
-              <p v-else class="borrow-money red">{{ paymentDisplay(borrowRelation.borrowMoney) }}</p>
-              <router-link v-bind:to="{ name : 'ShowBorrowHistory', params : { borrower_id: borrowRelation.userId , travel_hash_id: travel.hashId}}"><img class="payment-edit-button" src="@/assets/list_image.png"></router-link>
+              <p class="borrow-money blue">{{ paymentDisplay(seisanMoneyDisplay(seisanRecord.borrowMoney)) }}</p>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+        <h2 class="list-title">お金の貸し借り</h2>
+        <ul class="borrow-relation-container flex">
+          <li v-for="borrowRelation in borrowRelationList">
+            <div v-if="borrowRelation.borrowMoney !== 0" class="payment-borrow-list flex">
+              <div class="payment-borrow-list-left flex">
+                <p>{{ borrowRelation.name }}</p>
+              </div>
+              <div class="payment-borrow-list-right flex">
+                <p v-if="isPositiveSign(borrowRelation.borrowMoney)" class="borrow-money blue">{{ paymentDisplay(borrowRelation.borrowMoney) }}</p>
+                <p v-else class="borrow-money red">{{ paymentDisplay(borrowRelation.borrowMoney) }}</p>
+                <router-link v-bind:to="{ name : 'ShowBorrowHistory', params : { borrower_id: borrowRelation.userId , travel_hash_id: travel.hashId}}"><img class="payment-edit-button" src="@/assets/list_image.png"></router-link>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div v-else class="message-area-container">
+        <div class="message-area flex">
+          <p>まだ立替記録がありません。<br><br>
+          「支払いの追加」から<br>
+          立て替えた記録を追加していこう！<br><br>
+          支払いの追加をすると清算結果を表示します</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -263,6 +273,24 @@ export default {
 </script>
 
 <style scoped>
+.message-area-container{
+  padding: 5vw 5vw;
+  margin-top: 10vw;
+  background: #e4e5e6;
+  border-radius: 1vw;
+}
+.message-area{
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  background: #fefeff;
+  border-radius: 1vw;
+  width: 100%;
+  height: 50vw;
+  color:#2c3e50;
+  font-size: 4vw;
+  padding: 4vw 0vw;
+}
 .list-title{
   margin: 10px 0px;
   color: #2c3e50;

@@ -53,14 +53,14 @@
         <button @click="edit(travelId)">更新</button>
       </div>
 
-      <div class="edit-area">
+      <!-- <div class="edit-area">
         <h3>参加者</h3>
         <ul class="flex traveler-list">
           <li class="traveler-name" v-for="traveler in travelers">
             <p class="traveler-name-name">{{ traveler.name }}</p> <button class="traveler-delete-button" @click="deleteTraveler(travelId, traveler.id, traveler.name)">削除</button>
           </li>
         </ul>
-      </div>
+      </div> -->
       <button @click="cancel(travelId)">キャンセル</button>
       </div>
       <div class="overlay" v-show="showDeleteModal">
