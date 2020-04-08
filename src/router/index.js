@@ -10,6 +10,7 @@ import TravelRegister from '@/components/TravelRegister'
 import TravelEdit from '@/components/TravelEdit'
 import PaymentRegister from '@/components/PaymentRegister'
 import PaymentEdit from '@/components/PaymentEdit'
+import ShowBorrowHistory from '@/components/ShowBorrowHistory'
 import firebase from 'firebase'
 import axios from 'axios'
 import store from '../store'
@@ -71,6 +72,15 @@ let router = new Router({
       path: '/payment/edit/:payment_id/:travel_hash_id',
       name: 'PaymentEdit',
       component: PaymentEdit,
+      meta: {
+        requiresAuth: true,
+        requireJoinTravel: true
+      }
+    },
+    {
+      path: '/borrowHistory/show/:borrower_id/:travel_hash_id',
+      name: 'ShowBorrowHistory',
+      component: ShowBorrowHistory,
       meta: {
         requiresAuth: true,
         requireJoinTravel: true

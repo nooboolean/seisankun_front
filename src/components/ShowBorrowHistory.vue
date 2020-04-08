@@ -1,0 +1,91 @@
+<template>
+  <div>
+    <div class="base-box">
+      <ul class="borrow-history-container flex">
+        <li class="borrow-history-list flex" v-for="borrowHistory in borrowHistoryList">
+          <div class="borrow-history-list-left flex">
+            <p class="borrow-history-title">{{ borrowHistory.paymentTitle }}</p>
+          </div>
+          <div class="borrow-history-list-right flex">
+            <p v-if="isPositiveSign(borrowHistory.borrowMoney)" class="borrow-history-amount blue">{{ paymentDisplay(borrowHistory.borrowMoney) }}</p>
+            <p v-else class="borrow-history-amount red">{{ paymentDisplay(borrowHistory.borrowMoney) }}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ShowBorrowHistory',
+  data () {
+    return {
+      borrowHistoryList: []
+    }
+  },
+  created () {
+    this.getBorrowHistory()
+  },
+  methods: {
+    isPositiveSign (number) {
+      if (number >= 0) {
+        return true
+      }
+      return false
+    },
+    paymentDisplay (payment) {
+      return payment.toLocaleString('ja-JP', {"style":"currency", "currency":"JPY"});
+    },
+    getBorrowHistory () {
+      this.$seisankunApi.get('/v1/borrow_history/show/' + this.$route.params.borrower_id + '/' + this.$route.params.travel_hash_id + '')
+        .then(response => {
+          this.borrowHistoryList = response.data
+        })
+        .catch(err => {
+          for (let key of Object.keys(err)) {
+            console.log(key)
+            console.log(err[key])
+          }
+        })
+    }
+  }
+}
+</script>
+
+<style scoped>
+.borrow-history-container{
+  flex-direction: column;
+  color: #2c3e50;
+  margin-top: 10px;
+}
+
+.borrow-history-list{
+  padding-bottom: 10px;
+  border-bottom: 1px solid #2c3e50;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.borrow-history-list-left{
+  flex-direction: column;
+  text-align: left;
+}
+
+.borrow-history-list-right{
+
+}
+
+.payment-amount{
+  font-size: 5vw;
+  margin-right: 6vw;
+}
+
+.blue{
+  color: #206dc5;
+}
+
+.red{
+  color: #dd4a76;
+}
+</style>

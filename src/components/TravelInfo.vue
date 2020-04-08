@@ -55,7 +55,7 @@
             <div class="payment-borrow-list-right flex">
               <p v-if="isPositiveSign(borrowRelation.borrowMoney)" class="borrow-money blue">{{ paymentDisplay(borrowRelation.borrowMoney) }}</p>
               <p v-else class="borrow-money red">{{ paymentDisplay(borrowRelation.borrowMoney) }}</p>
-              <router-link v-bind:to="{ name : 'showBorrowHistory', params : { borrower_id: borrowRelation.userId }}"><img class="payment-edit-button" src="@/assets/list_image.png"></router-link>
+              <router-link v-bind:to="{ name : 'ShowBorrowHistory', params : { borrower_id: borrowRelation.userId , travel_hash_id: travel.hashId}}"><img class="payment-edit-button" src="@/assets/list_image.png"></router-link>
             </div>
           </div>
         </li>
