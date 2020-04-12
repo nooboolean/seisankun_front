@@ -27,7 +27,11 @@ export default {
       if (typeof redirectUrl === 'undefined') {
         redirectUrl = '/top'
       }
+      if (this.$store.getters.isSignout) {
+        redirectUrl = null
+      }
       this.$store.commit('setRedirectUrl', redirectUrl)
+      this.$store.commit('setSignoutState', false)
     }
   },
   methods: {

@@ -95,7 +95,7 @@ export default {
         updatedBy: userId
       })
         .then(async response => {
-          await this.joinTravel(response.data.id, userId)
+          // await this.joinTravel(response.data.id, userId)
           await this.$router.push('/travel/info/' + response.data.hashId + '')
         })
         .catch(err => {

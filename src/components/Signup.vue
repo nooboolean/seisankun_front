@@ -58,12 +58,13 @@ export default {
         profile: this.profile,
         createdBy: this.createdBy
       })
-        .then(response => {
+        .then(async response => {
           this.$store.commit('onFirebaseAuthStateChanged', userByFirebase)
           this.$store.commit('onSeisankunAuthStateChanged', response.data)
           this.$store.commit('onUserStatusChanged', !!userByFirebase.uid)
           alert('会員登録完了！\n 引き続きサービスをご利用ください')
-          this.$router.push(this.$store.getters.redirectUrl)
+          await this.$router.push(this.$store.getters.redirectUrl)
+          this.$store.commit('setRedirectUrl', null)
         })
         .catch(err => {
           for (let key of Object.keys(err)) {

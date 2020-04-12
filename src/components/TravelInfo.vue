@@ -17,6 +17,7 @@
           </li>
         </div>
       </ul>
+      <button @click="shareModal">参加者追加</button>
     </div>
     <div class="base-box">
       <button class="payment-button" @click="paymentRegister">支払いの追加</button>
@@ -70,6 +71,12 @@
           支払いの追加をすると清算結果を表示します</p>
         </div>
       </div>
+      <div class="overlay" v-show="showShareModal">
+        <p>以下URLをコピーして参加者に送信しよう！</p>
+        <input type="text" id="copy-target" v-model="pagePath" readonly>
+        <button @click="clipboard_ni_copy">コピー</button>
+        <button @click="closeShareModale">閉じる</button>
+      </div>
     </div>
   </div>
 </template>
@@ -85,13 +92,30 @@ export default {
       payments: [],
       borrowMoney: [],
       borrowRelationList: [],
-      seisanList: []
+      seisanList: [],
+      showShareModal: false,
+      pagePath: location.href
     }
   },
   created () {
     this.getTravelId()
   },
   methods: {
+    shareModal () {
+      this.showShareModal = true
+    },
+    closeShareModale () {
+      this.showShareModal = false
+    },
+    clipboard_ni_copy () {
+      var copyText = document.querySelector('#copy-target')
+      copyText.select()
+      if (document.execCommand('copy')) {
+        alert('クリップボードにコピーしました.')
+      } else {
+        alert('Ctrl+Cを押してください.')
+      }
+    },
     isPositiveSign (number) {
       if (number >= 0) {
         return true

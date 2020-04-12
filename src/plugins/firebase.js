@@ -29,6 +29,9 @@ export default {
       })
   },
   login (email, password, redirectUrl) {
+    if (redirectUrl === null) {
+      redirectUrl = '/top'
+    }
     firebase.auth().signInWithEmailAndPassword(email, password).then(
       async user => {
         await this.onAuth()
@@ -44,7 +47,11 @@ export default {
   },
   logout () {
     firebase.auth().signOut()
-    store.commit('setRedirectUrl', null)
+      .then(async _ => {
+        await store.commit('setRedirectUrl', null)
+        await store.commit('setSignoutState', true)
+        await router.push('/signin')
+      })
   },
   getCurrentUser () {
     firebase.auth().currentUser()
