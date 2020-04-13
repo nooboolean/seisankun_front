@@ -6,12 +6,12 @@
     <div class="nav-auth">
       <!-- ログイン時にはフォームとログアウトボタンを表示 -->
       <div v-if="userStatus" key="login" class="navbar-item">
-        <button class="nav-auth-button" @click="signOut">Sign out</button>
+        <button class="nav-auth-button" @click="signOut">ログアウト</button>
       </div>
       <!-- 未ログイン時にはログインボタンを表示 -->
       <div v-else key="logout">
-        <button @click="signIn">Signin</button>
-        <button @click="signUp">Signup</button>
+        <button @click="signIn">ログイン</button>
+        <button @click="signUp">会員登録</button>
       </div>
     </div>
   </div>

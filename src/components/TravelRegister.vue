@@ -3,26 +3,28 @@
     <h1 class="title">旅行作成</h1>
     <div class="base-box">
       <div class="edit-area">
-        <h3>旅行名</h3>
+        <h2 class="input-title">旅行名</h2>
         <input type="text" placeholder="旅行名" v-model="travelName">
       </div>
-      <h3>旅行開始日</h3>
-      <div class="datepicker">
-        <p>{{customformat(travelStart)}}</p>
-        <vuejs-datepicker
-            v-model="travelStart"
-            :value="this.default"
-            :format="DatePickerFormat"
-            placeholder="旅行開始日"
-            calendar-class=datepicker-calendar
-            wrapper-class=datepicker-wrapper
-            :inline="true"
-            :highlighted="highlighted"
-            :language="ja">
-        </vuejs-datepicker>
+      <div class="edit-area">
+        <h2 class="input-title">旅行開始日</h2>
+        <div class="datepicker">
+          <p>{{customformat(travelStart)}}</p>
+          <vuejs-datepicker
+              v-model="travelStart"
+              :value="this.default"
+              :format="DatePickerFormat"
+              placeholder="旅行開始日"
+              calendar-class=datepicker-calendar
+              wrapper-class=datepicker-wrapper
+              :inline="true"
+              :highlighted="highlighted"
+              :language="ja">
+          </vuejs-datepicker>
+        </div>
       </div>
       <div class="edit-area">
-      <h3>旅行終了日</h3>
+        <h2 class="input-title">旅行終了日</h2>
         <div class="datepicker">
           <p>{{customformat(travelEnd)}}</p>
           <vuejs-datepicker
@@ -126,6 +128,13 @@ export default {
 </script>
 
 <style scoped>
+.input-title{
+  font-size: 4vw;
+  color: #2c3e50;
+}
+.edit-area{
+  margin-bottom: 20px;
+}
 .signup {
   margin-top: 20px;
 

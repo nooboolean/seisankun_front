@@ -94,7 +94,8 @@ export default {
   right: 10px;
   width: 15vw;
   height: 15vw;
-  background-color: #e4640f;
+  /* background-color: #e4640f;*/
+  background-color: #cf5271;
   border-radius: 100%;
   box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.4);
 }

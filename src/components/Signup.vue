@@ -1,13 +1,20 @@
 <template>
-  <div class="signup">
-    <h2>会員登録</h2>
-    <div class="base-box">
-      <p>メールアドレス</p>
-      <input type="text" placeholder="Email" v-model="email">
-      <h3>パスワード</h3>
-      <input type="password" placeholder="Password" v-model="password">
-      <h3>名前</h3>
-      <input type="text" placeholder="Name" v-model="name">
+  <div>
+    <h1 class="title">会員登録</h1>
+    <div class="base-box signup">
+      <img class="logo" src="@/assets/logo.002.png">
+      <div class="input-container">
+        <p class="input-label">メールアドレス</p>
+        <input type="text" placeholder="メールアドレス" v-model="email">
+      </div>
+      <div class="input-container">
+        <p class="input-label">パスワード</p>
+        <input type="password" placeholder="パスワード" v-model="password">
+      </div>
+      <div class="input-container">
+        <p class="input-label">名前</p>
+        <input type="text" placeholder="名前" v-model="name">
+      </div>
       <!-- <h3>性別</h3>
       <select v-model="genderSelected">
         <option v-for="gender in genderOptions" v-bind:value="gender.value">
@@ -16,9 +23,12 @@
       </select> -->
       <!-- <h3>自己紹介文</h3>
       <textarea placeholder="Profile" v-model="profile"></textarea> -->
+      <p class="terms-prompt"><router-link to="/tos" class="terms-button">利用規約</router-link>に同意の上会員登録してください</p>
       <button @click="signUp">会員登録</button>
-      <p>すでに会員登録がお済みの方はこちら</p>
-      <router-link to="/signin">ログイン</router-link>
+      <div class="signin-router">
+        <p>すでに会員登録がお済みの方はこちら</p>
+        <router-link to="/signin" class="signin-path-button">ログイン</router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -82,19 +92,47 @@ a {
   color: #42b983;
 }
 .signup {
-  margin-top: 20px;
-
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center
 }
-input {
-  margin: 10px 0;
-  padding: 10px;
+.input-container{
+  margin-bottom: 10px;
+  text-align: left;
 }
-
+.input-label{
+  margin: 0;
+  padding:0;
+  color: #2c3e50;
+  font-size: 3vw;
+}
+input {
+  margin:0;
+  width: 50vw;
+}
+.terms-prompt{
+  margin-top: 10px;
+  font-size: 3vw;
+}
+.terms-button{
+  color: #2c3e50;
+}
 .base-box{
   background-color: #1db8a3;
+}
+
+.signin-router{
+  margin-top: 30px;
+  font-size: 3vw;
+}
+
+.signin-path-button{
+  color: #2c3e50;
+  cursor: pointer;
+}
+
+.logo {
+  width: 45vw;
 }
 </style>

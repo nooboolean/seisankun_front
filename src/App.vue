@@ -30,6 +30,7 @@ export default {
 
 body {
   background-color :#1db8a3;
+  font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
 }
 
 #app {
@@ -62,7 +63,7 @@ li{
 }
 
 input {
-  margin: 10px 0;
+  margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #179585;

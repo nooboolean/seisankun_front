@@ -1,12 +1,16 @@
 <template>
-  <div class="login">
-    <h2 class="title">Login</h2>
-    <input type="text" placeholder="Email" v-model="email">
-    <input type="password" placeholder="Password" v-model="password">
-    <button class="login-button" @click="signIn">Login</button>
-    <p>You don't have an account?
-      <router-link to="/signup">create account now!!</router-link>
-    </p>
+  <div>
+    <h1 class="title">ログイン</h1>
+    <div class="base-box login">
+      <img class="logo" src="@/assets/logo.002.png">
+      <input class="login-text" type="text" placeholder="メールアドレス" v-model="email">
+      <input class="login-text" type="password" placeholder="パスワード" v-model="password">
+      <button class="login-button" @click="signIn">ログイン</button>
+      <div class="signup-router">
+        <p>会員をお持ちでない方はこちらから</p>
+        <router-link to="/signup" class="signup-path-button">新規会員登録へ</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -45,14 +49,31 @@ export default {
 
 <style scoped>
 .title {
-  letter-spacing: 10px;
+  font-family: 'Hiragino Kaku Gothic Pro';
 }
 .login {
-  margin-top: 20px;
+  background-color :#1db8a3;
   display: flex;
   flex-flow: column nowrap;
-  /* justify-content: center; */
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center
+}
+
+.signup-router{
+  margin-top: 20px;
+  font-size: 3vw;
+}
+
+.signup-path-button{
+  color: #2c3e50;
+  cursor: pointer;
+}
+
+.login-text{
+  width: 45vw;
+}
+
+.logo {
+  width: 45vw;
 }
 </style>

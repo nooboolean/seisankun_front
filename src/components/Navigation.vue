@@ -1,7 +1,7 @@
 <template>
     <div id="nav">
       <div id="navbar-left">
-        <router-link to="/top"><img class="top-logo" src="@/assets/logo.png"></router-link>
+        <router-link to="/top"><img class="top-logo" src="@/assets/logo.002.png"></router-link>
       </div>
       <Authentication />
     </div>
