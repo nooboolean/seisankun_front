@@ -133,4 +133,8 @@ button:hover{
   background: #cf5271 !important;
   color: #fff !important;
 }
+
+.input-valid-message{
+  font-size: 3vw;
+}
 </style>

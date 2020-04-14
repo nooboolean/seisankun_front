@@ -91,6 +91,9 @@ export default {
 a {
   color: #42b983;
 }
+.title {
+  font-family: 'Hiragino Kaku Gothic Pro';
+}
 .signup {
   display: flex;
   flex-flow: column nowrap;
