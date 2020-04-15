@@ -6,14 +6,23 @@
       <div class="input-container">
         <p class="input-label">メールアドレス</p>
         <input type="text" placeholder="メールアドレス" v-model="email">
+        <div class="valid-message-container">
+          <p class="input-valid-message">※128文字以内でご記入ください</p>
+        </div>
       </div>
       <div class="input-container">
         <p class="input-label">パスワード</p>
         <input type="password" placeholder="パスワード" v-model="password">
+        <div class="valid-message-container">
+          <p class="input-valid-message">※4文字以上20文字以内でご記入ください</p>
+        </div>
       </div>
       <div class="input-container">
         <p class="input-label">名前</p>
         <input type="text" placeholder="名前" v-model="name">
+        <div class="valid-message-container">
+          <p class="input-valid-message">※10文字以内でご記入ください</p>
+        </div>
       </div>
       <!-- <h3>性別</h3>
       <select v-model="genderSelected">
@@ -137,5 +146,10 @@ input {
 
 .logo {
   width: 45vw;
+}
+
+button{
+  width: 55vw;
+  height: 10vw;
 }
 </style>

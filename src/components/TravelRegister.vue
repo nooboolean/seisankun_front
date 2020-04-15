@@ -1,10 +1,13 @@
 <template>
   <div>
     <h1 class="title">旅行作成</h1>
-    <div class="base-box">
+    <div class="base-box travel-regist">
       <div class="edit-area">
         <h2 class="input-title">旅行名</h2>
         <input type="text" placeholder="旅行名" v-model="travelName">
+        <div class="valid-message-container">
+          <p class="input-valid-message">※1文字以上20文字以内でご記入ください</p>
+        </div>
       </div>
       <div class="edit-area">
         <h2 class="input-title">旅行開始日</h2>
@@ -46,8 +49,8 @@
           {{ privateFlag.text }}
         </option>
       </select> -->
-      <button @click="cancel">キャンセル</button>
       <button @click="register">登録</button>
+      <button class="cancel-button" @click="cancel">キャンセル</button>
     </div>
   </div>
 </template>
@@ -135,20 +138,26 @@ export default {
 .edit-area{
   margin-bottom: 20px;
 }
-.signup {
+.travel-regist {
   margin-top: 20px;
-
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  align-items: center
+  align-items: center;
+  background-color: #1db8a3;
 }
-input {
-  margin: 10px 0;
-  padding: 10px;
+input{
+  width: 60vw;
+  margin:0;
 }
-
-.base-box{
+button{
+  width: 60vw;
+  height: 10vw;
+}
+.cancel-button{
+  margin-top: 10px;
+  color: #fff;
+  border:1px solid  #fff;
   background-color: #1db8a3;
 }
 </style>

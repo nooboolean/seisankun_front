@@ -137,4 +137,159 @@ button:hover{
 .input-valid-message{
   font-size: 3vw;
 }
+.valid-message-container{
+  text-align: left;
+}
+
+/* セレクト */
+.cp_ipselect {
+  position: relative;
+  width: 65vw;
+  margin: 30px 0 0 0;
+  text-align: center;
+}
+.cp_sl06 {
+  position: relative;
+  background-color: transparent;
+  width: 100%;
+  padding: 10px 10px 5px 0;
+  font-size: 4vw;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #2c3e50;
+}
+.cp_sl06:focus {
+  outline: none;
+  border-bottom: 1px solid #2c3e50;
+}
+.cp_ipselect .cp_sl06 {
+  appearance: none;
+  -webkit-appearance:none
+}
+.cp_ipselect select::-ms-expand {
+  display: none;
+}
+.cp_ipselect:after {
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  padding: 0;
+  content: '';
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #2c3e50;
+  pointer-events: none;
+}
+.cp_sl06_selectlabel {
+  color: #2c3e50;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  top: 10px;
+  transition: 0.2s ease all;
+}
+.cp_sl06:focus ~ .cp_sl06_selectlabel, .cp_sl06:valid ~ .cp_sl06_selectlabel {
+  color: #fff;
+  top: -20px;
+  transition: 0.2s ease all;
+  font-size: 3vw;
+}
+.cp_sl06_selectbar {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+.cp_sl06_selectbar:before, .cp_sl06_selectbar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #fff;
+  transition: 0.2s ease all;
+}
+.cp_sl06_selectbar:before {
+  left: 50%;
+}
+.cp_sl06_selectbar:after {
+  right: 50%;
+}
+.cp_sl06:focus ~ .cp_sl06_selectbar:before, .cp_sl06:focus ~ .cp_sl06_selectbar:after {
+  width: 50%;
+}
+.cp_sl06_highlight {
+  position: absolute;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* チェックボックス */
+.cp_ipcheck {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #a1b1c0;
+  width: 65vw;
+}
+.cp_ipcheck:before, .cp_ipcheck:after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+.cp_ipcheck .box {
+  width: 90%;
+  margin: 2em auto;
+  text-align: left;
+  border: 1px solid white;
+  border-radius: 5px;
+  background: #ffffff;
+}
+.cp_ipcheck input[type=checkbox] {
+  display: none;
+}
+.cp_ipcheck label:focus,
+.cp_ipcheck label:hover,
+.cp_ipcheck label:active,
+.cp_ipcheck input:checked + label {
+  color: #cf5271;
+}
+.cp_ipcheck label:focus:before,
+.cp_ipcheck label:hover:before,
+.cp_ipcheck label:active:before,
+.cp_ipcheck input:checked + label:before {
+  border-color: #cf5271;
+  background: #ffffff;
+}
+.cp_ipcheck label {
+  font-size: 4vw;
+  font-weight: bold;
+  line-height: 1;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 5px 200px 5px 3em;
+  cursor: pointer;
+  -webkit-transition: all 0.15s ease;
+          transition: all 0.15s ease;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: #ffffff;
+}
+.cp_ipcheck label:before {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  width: 5px;
+  height: 5px;
+  content: '';
+  border: 0.2em solid #cccccc;
+}
+.cp_ipcheck input:checked + label:before {
+  border-color: #cf5271;
+  background: #cf5271;
+}
 </style>

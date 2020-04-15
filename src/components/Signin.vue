@@ -76,4 +76,9 @@ export default {
 .logo {
   width: 45vw;
 }
+button{
+  margin-top: 10px;
+  width: 50vw;
+  height: 10vw;
+}
 </style>
