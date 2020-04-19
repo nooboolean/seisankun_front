@@ -4,10 +4,10 @@
     <ul class="base-box">
       <li class="user-label">名前</li>
       <li class="user-detail">{{ user.name }}</li>
-      <li class="user-label">性別</li>
+      <!-- <li class="user-label">性別</li>
       <li class="user-detail">{{ gender[user.gender].text }}</li>
       <li class="user-label">自己紹介</li>
-      <li class="user-detail">{{ user.profile }}</li>
+      <li class="user-detail">{{ user.profile }}</li> -->
     </ul>
   </div>
 </template>

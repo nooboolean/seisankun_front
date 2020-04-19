@@ -1,25 +1,55 @@
 <template>
   <div>
-    <h1 class="title">あなたの旅行一覧</h1>
-    <ul class="base-box">
-      <li class="travel-comtainer" v-for="travel in travels">
+    <h1 class="title">{{ user.name }}さんの旅行一覧</h1>
+    <ul class="base-box travel-container">
+      <ul class="travels-tab-menu flex">
+        <li class="travels-tab-button" v-on:click="tabChange('future')" v-bind:class="{'tab-active': isActive === 'future'}">今後の予定</li>
+        <li class="travels-tab-button" v-on:click="tabChange('past')" v-bind:class="{'tab-active': isActive === 'past'}">過去の予定</li>
+      </ul>
+      <li v-if="isActive === 'future' && !futureTravels"></li>
+      <li v-else-if="isActive === 'future'" class="travel" v-for="travel in futureTravels">
         <router-link v-bind:to="{ name : 'TravelInfo', params : { travel_hash_id: travel.travel.hashId }}">
-          <ul class="travel">
-            <li class="travel-info"><span class="travel-label">旅行名　：</span> <span class="travel-info-detail">{{ travel.travel.name }}</span></li>
-            <li class="travel-info flex traveler-container"><span class="travel-label">参加者　：</span>
-              <span class="travel-info-detail flex traveler">
-                <li class="traveler-name" v-for="user in travel.user">
-                  {{ user.name }}/
-                </li>
-              </span>
-            </li>
-            <li class="travel-info">
-              <span class="travel-label">旅行期間：</span>
-              <span class="travel-info-detail">{{ customformat(travel.travel.travelStart) }}</span>
-              <span class="travel-info-detail travel-between">~</span>
-              <span class="travel-info-detail">{{ customformat(travel.travel.travelStart) }}</span>
-            </li>
-          </ul>
+          <div class="travel-card-title-container flex">
+            <div class="travel-datetime">
+              <p class="">{{ customformat(travel.travel.travelStart) }}<span class="ravel-between"> 〜 </span>{{ customformat(travel.travel.travelStart) }}</p>
+            </div>
+            <div class="travel-title">
+              <p class="travel-title-text">{{ travel.travel.name }}</p>
+            </div>
+          </div>
+          <div class="travel-card-member-container flex">
+            <div class="travel-member-label">
+              <p class="travel-member-label-text">参加者</p>
+            </div>
+            <div class="travel-member-list flex">
+              <p class="travel-member-name" v-for="user in travel.user">
+                {{ user.name }}/
+              </p>
+            </div>
+          </div>
+        </router-link>
+       </li>
+      <li v-else-if="isActive === 'past' && !pastTravels"></li>
+      <li v-else-if="isActive === 'past'" class="travel" v-for="travel in pastTravels">
+        <router-link v-bind:to="{ name : 'TravelInfo', params : { travel_hash_id: travel.travel.hashId }}">
+          <div class="travel-card-title-container flex">
+            <div class="travel-datetime">
+              <p class="">{{ customformat(travel.travel.travelStart) }}<span class="ravel-between"> 〜 </span>{{ customformat(travel.travel.travelStart) }}</p>
+            </div>
+            <div class="travel-title">
+              <p class="travel-title-text">{{ travel.travel.name }}</p>
+            </div>
+          </div>
+          <div class="travel-card-member-container flex">
+            <div class="travel-member-label">
+              <p class="travel-member-label-text">参加者</p>
+            </div>
+            <div class="travel-member-list flex">
+              <p class="travel-member-name" v-for="user in travel.user">
+                {{ user.name }}/
+              </p>
+            </div>
+          </div>
         </router-link>
        </li>
     </ul>
@@ -36,20 +66,34 @@ export default {
   name: 'Top',
   data () {
     return {
-      travels: ''
+      futureTravels: [],
+      pastTravels: [],
+      isActive: 'future'
     }
   },
   created () {
     this.getTravels()
   },
   methods: {
+    tabChange (tabName) {
+      this.isActive = tabName
+    },
     customformat (value) {
-      return moment(value).format('YYYY年 MM月 DD日')
+      return moment(value).format('YYYY/MM/DD')
     },
     getTravels () {
       this.$seisankunApi.get('/v1/travel/list/' + this.$store.getters.userBySeisankun.id + '')
         .then(response => {
-          this.travels = response.data
+          response.data.some(travel => {
+            if (travel.travel.travelStart >= moment().format('YYYY-MM-DD')) {
+              this.futureTravels.push(travel)
+              return false
+            }
+            if (travel.travel.travelStart < moment().format('YYYY-MM-DD')) {
+              this.pastTravels.push(travel)
+              return false
+            }
+          })
         })
         .catch(err => {
           for (let key of Object.keys(err)) {
@@ -60,30 +104,84 @@ export default {
     }
   },
   computed: {
+    user () {
+      return this.$store.getters.userBySeisankun
+    }
   }
 }
 </script>
 
 <style scoped>
+.travels-tab-menu{
+  color: #2c3e50;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.travels-tab-button{
+  padding-top: 5vw;
+  height: 5vw;
+  width: 50%;
+  font-size: 3vw;
+  cursor: pointer;
+}
+
+.tab-active{
+  border-bottom: 2px solid #1db8a3;
+}
+
+.travel-datetime{
+  text-align: left;
+}
+
 .travel{
   margin: 0px 5px 20px 5px;
-  padding: 5px;
-  box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.4);
+  box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
   font-size: 3vw;
 }
 
-.travel-info{
+.travel-title{
+  height: 15vw;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.travel-label{
+.travel-title-text{
+  font-size: 5vw;
+  text-shadow: 2px 2px 5px #2c3e50;
+}
+
+.travel-card-title-container{
+  background-color: #1db8a3;
+  color: #fff;
+  flex-direction: column;
+  height: 20vw;
+  padding: 5px;
+}
+
+.travel-container{
+  display: flex;
+  flex-direction: column;
+  padding-top:0;
+}
+
+.travel-card-member-container{
+  flex-direction: column;
+  height: 15vw;
+  padding: 5px;
   color: #2c3e50;
 }
 
-.travel-info-detail{
-  color: #1db8a3;
+.travel-member-label{
+  display: flex;
+  flex-direction: flex-start;
+}
+
+.travel-member-label-text{
+  font-weight: bold;
 }
 
 .register-button{
@@ -102,14 +200,15 @@ export default {
 .travel-between{
   margin: 0 10px;
 }
-.traveler-container{
-  text-align: left;
+
+.travel-member-list{
+  justify-content: flex-start;
+  flex-wrap: wrap;
   align-content: flex-start;
+  padding: 0 5px;
 }
-.traveler{
-  align-content: flex-start;
-}
-.traveler-name{
-  /* margin-right: 1vw; */
+
+.travel-member-name{
+
 }
 </style>
