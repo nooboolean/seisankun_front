@@ -71,7 +71,7 @@ export default {
       isActive: 'future'
     }
   },
-  created () {
+  mounted () {
     this.getTravels()
   },
   methods: {

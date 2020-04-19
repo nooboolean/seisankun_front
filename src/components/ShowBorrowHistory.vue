@@ -30,7 +30,7 @@ export default {
       borrowHistoryList: []
     }
   },
-  created () {
+  mounted () {
     this.getBorrowHistory()
   },
   methods: {

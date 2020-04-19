@@ -97,7 +97,7 @@ export default {
       pagePath: location.href
     }
   },
-  created () {
+  mounted () {
     this.getTravelId()
   },
   methods: {

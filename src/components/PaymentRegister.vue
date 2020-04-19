@@ -65,7 +65,7 @@ export default {
       travelId: ''
     }
   },
-  created () {
+  mounted () {
     this.getTravelId()
   },
   methods: {
