@@ -4,9 +4,12 @@
     <div class="base-box payment-register">
       <div class="edit-area">
         <h2 class="input-title">タイトル</h2>
-        <input class="input-text" type="text" placeholder="例)宿泊代" v-model="title">
+        <input class="input-text" type="text" placeholder="例)宿泊代" v-model="paymentTitle" v-bind:class="{'valid-error-active': Validation.paymentTitle}">
         <div class="valid-message-container">
           <p class="input-valid-message">※1文字以上20文字以内でご記入ください</p>
+          <p v-if="Validation.paymentTitle" class="valid-error">
+            {{ Validation.paymentTitle }}
+          </p>
         </div>
       </div>
       <div class="edit-area">
@@ -21,10 +24,13 @@
           <span class="cp_sl06_selectbar"></span>
           <label class="cp_sl06_selectlabel">選択してください</label>
         </div>
+        <p v-if="Validation.payerSelected" class="valid-error">
+          {{ Validation.payerSelected }}
+        </p>
       </div>
       <div class="edit-area">
         <h2 class="input-title">借り手</h2>
-        <div class="cp_ipcheck">
+        <div class="cp_ipcheck" v-bind:class="{'valid-error-active': Validation.borrowers}">
           <li v-for="traveler in travelers">
             <input
             :id="'traveler' + traveler.id"
@@ -35,17 +41,23 @@
             <label :for="'traveler' + traveler.id">{{ traveler.name }}</label>
           </li>
         </div>
+        <p v-if="Validation.borrowers" class="valid-error">
+          {{ Validation.borrowers }}
+        </p>
       </div>
       <div class="edit-area">
         <h2 class="input-title">料金</h2>
         <div>
-          <input class="input-text-amount" type="text" placeholder="例)1000" v-model="amount">円
+          <input class="input-text-amount" type="text" placeholder="例)1000" v-model="paymentAmount" v-bind:class="{'valid-error-active': Validation.paymentAmount}">円
         </div>
         <div class="valid-message-container">
-          <p class="input-valid-message">※半角数字でご記入ください</p>
+          <p class="input-valid-message">※半角数字でご入力ください</p>
         </div>
+        <p v-if="Validation.paymentAmount" class="valid-error">
+          {{ Validation.paymentAmount }}
+        </p>
       </div>
-      <button @click="register">追加</button>
+      <button @click="validForm">追加</button>
       <button class="cancel-button" @click="cancel">キャンセル</button>
     </div>
   </div>
@@ -57,12 +69,19 @@ export default {
   data () {
     return {
       travelers: [],
-      payerSelected: 0,
+      payerSelected: null,
       payerOptions: [],
-      title: '',
+      paymentTitle: '',
       borrowers: [],
-      amount: '',
-      travelId: ''
+      paymentAmount: '',
+      travelId: '',
+      travelerIdList: [],
+      Validation: {
+        paymentTitle: null,
+        payerSelected: null,
+        borrowers: null,
+        paymentAmount: null
+      }
     }
   },
   mounted () {
@@ -85,15 +104,61 @@ export default {
     cancel: function () {
       this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
     },
+    validForm: function (e) {
+      let validPaymentTitle = false
+      let validPayer = false
+      let validBorrowers = false
+      let validPaymentAmount = false
+      // タイトルのバリデーション
+      if (!this.paymentTitle.trim()) {
+        this.Validation.paymentTitle = 'タイトルの入力は必須です'
+      } else if (this.paymentTitle.length > 20) {
+        this.Validation.paymentTitle = '20文字以内で入力してください'
+      } else {
+        this.Validation.paymentTitle = null
+        validPaymentTitle = true
+      }
+      // 立て替え者のバリデーション
+      if (!this.payerSelected) {
+        this.Validation.payerSelected = '立て替え者の選択は必須です'
+      } else if (!this.travelerIdList.includes(this.payerSelected)) {
+        this.Validation.payerSelected = '不正な値です'
+      } else {
+        this.Validation.payerSelected = null
+        validPayer = true
+      }
+      // 借り手のバリデーション
+      if (this.borrowers.length === 0) {
+        this.Validation.borrowers = '借り手は1人以上指定してください'
+      } else {
+        this.Validation.borrowers = null
+        validBorrowers = true
+      }
+      // 料金のバリデーション
+      if (!this.paymentAmount.trim()) {
+        this.Validation.paymentAmount = '料金の入力は必須です'
+      } else if (!this.paymentAmount.trim().match(/^([1-9]\d*|0)$/)) {
+        this.Validation.paymentAmount = '料金は半角数字をご入力ください'
+      } else {
+        this.Validation.paymentAmount = null
+        validPaymentAmount = true
+      }
+
+      if (validPaymentTitle === true && validPayer === true && validBorrowers === true && validPaymentAmount === true) {
+        this.register()
+      } else {
+        scrollTo(0, 0)
+      }
+      e.preventDefault()
+    },
     register: function () {
-      console.log(this.borrowers)
       let userId = this.$store.getters.userBySeisankun.id
       this.$seisankunApi.post('/v1/payment/register', {
         travelId: this.travelId,
         payerId: this.payerSelected,
-        title: this.title,
+        title: this.paymentTitle,
         borrowers: this.borrowers,
-        amount: this.amount,
+        amount: this.paymentAmount,
         createdBy: userId,
         updatedBy: userId
       })
@@ -114,6 +179,7 @@ export default {
           this.travelers = response.data
           response.data.forEach(element => {
             this.borrowers.push(element.id)
+            this.travelerIdList.push(element.id)
           })
         })
         .catch(err => {

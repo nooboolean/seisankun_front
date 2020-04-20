@@ -4,9 +4,12 @@
     <div class="base-box travel-regist">
       <div class="edit-area">
         <h2 class="input-title">旅行名</h2>
-        <input type="text" placeholder="旅行名" v-model="travelName">
+        <input type="text" placeholder="旅行名" v-model="travelName" v-bind:class="{'valid-error-active': Validation.travelName}">
         <div class="valid-message-container">
           <p class="input-valid-message">※1文字以上20文字以内でご記入ください</p>
+          <p v-if="Validation.travelName" class="valid-error">
+            {{ Validation.travelName }}
+          </p>
         </div>
       </div>
       <div class="edit-area">
@@ -49,7 +52,7 @@
           {{ privateFlag.text }}
         </option>
       </select> -->
-      <button @click="register">登録</button>
+      <button @click="validForm">登録</button>
       <button class="cancel-button" @click="cancel">キャンセル</button>
     </div>
   </div>
@@ -72,14 +75,17 @@ export default {
         days: [6, 0]
       },
       ja:ja,
-      travelName: '',
+      travelName: null,
       travelStart: moment().format('YYYY-MM-DD'),
       travelEnd: moment().format('YYYY-MM-DD'),
       privateFlagSelected: 0,
       privateOptions: [
         { text: '未設定', value: 0 },
         { text: 'プライベート', value: 1 }
-      ]
+      ],
+      Validation: {
+        travelName: null
+      }
     }
   },
   methods: {
@@ -89,10 +95,28 @@ export default {
     cancel: function () {
       this.$router.push('/top')
     },
+    validForm: function (e) {
+      let validTravelName = false
+
+      if (!this.travelName.trim()) {
+        this.Validation.travelName = '旅行名の入力は必須です'
+      } else if (this.travelName.length > 20) {
+        this.Validation.travelName = '20文字以内で入力してください'
+      } else {
+        this.Validation.travelName = null
+        validTravelName = true
+      }
+      if (validTravelName === true) {
+        this.register()
+      } else {
+        scrollTo(0, 0)
+      }
+      e.preventDefault()
+    },
     register: function () {
       let userId = this.$store.getters.userBySeisankun.id
       this.$seisankunApi.post('/v1/travel/register', {
-        name: this.travelName,
+        name: this.travelName.trim(),
         travelStart: moment(this.travelStart).format('YYYY-MM-DD'),
         travelEnd: moment(this.travelEnd).format('YYYY-MM-DD'),
         privateFlag: this.privateFlagSelected,

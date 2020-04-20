@@ -5,23 +5,33 @@
       <img class="logo" src="@/assets/logo.002.png">
       <div class="input-container">
         <p class="input-label">メールアドレス</p>
-        <input type="text" placeholder="メールアドレス" v-model="email">
+        <input type="text" placeholder="メールアドレス" v-model="email" v-bind:class="{'valid-error-active': Validation.email}">
         <div class="valid-message-container">
-          <p class="input-valid-message">※128文字以内でご記入ください</p>
+          <p class="input-valid-message">※128文字以内でご入力ください</p>
+          <p v-if="Validation.email" class="valid-error">
+            {{ Validation.email }}
+          </p>
         </div>
       </div>
       <div class="input-container">
         <p class="input-label">パスワード</p>
-        <input type="password" placeholder="パスワード" v-model="password">
+        <input type="password" placeholder="パスワード" v-model="password" v-bind:class="{'valid-error-active': Validation.password}">
         <div class="valid-message-container">
-          <p class="input-valid-message">※4文字以上20文字以内でご記入ください</p>
+          <p class="input-valid-message">※4文字以上でご入力ください</p>
+          <p v-if="Validation.password" class="valid-error">
+            {{ Validation.password }}
+          </p>
         </div>
       </div>
       <div class="input-container">
         <p class="input-label">名前</p>
-        <input type="text" placeholder="名前" v-model="name">
+        <input type="text" placeholder="名前" v-model="name" v-bind:class="{'valid-error-active': Validation.name}">
         <div class="valid-message-container">
-          <p class="input-valid-message">※10文字以内でご記入ください</p>
+          <p class="input-valid-message">※ユーザー名の入力は必須です</p>
+          <p class="input-valid-message">※10文字以内でご入力ください</p>
+          <p v-if="Validation.name" class="valid-error">
+            {{ Validation.name }}
+          </p>
         </div>
       </div>
       <!-- <h3>性別</h3>
@@ -33,7 +43,7 @@
       <!-- <h3>自己紹介文</h3>
       <textarea placeholder="Profile" v-model="profile"></textarea> -->
       <p class="terms-prompt"><router-link to="/tos" class="terms-button">利用規約</router-link>に同意の上会員登録してください</p>
-      <button @click="signUp">会員登録</button>
+      <button @click="validForm">会員登録</button>
       <div class="signin-router">
         <p>すでに会員登録がお済みの方はこちら</p>
         <router-link to="/signin" class="signin-path-button">ログイン</router-link>
@@ -51,7 +61,7 @@ export default {
     return {
       email: '',
       password: '',
-      name: null,
+      name: '',
       genderSelected: 0,
       genderOptions: [
         { text: '未設定', value: 0 },
@@ -61,10 +71,61 @@ export default {
         { text: 'その他', value: 4}
       ],
       profile: null,
-      createdBy: 0
+      createdBy: 0,
+      Validation: {
+        email: null,
+        password: null,
+        name: null
+      }
     }
   },
   methods: {
+    validForm: function (e) {
+      let validEmail = false
+      let validPassword = false
+      let validUserName = false
+
+      // メールアドレスのバリデーション
+      if (!this.email.trim()) {
+        this.Validation.email = 'メールアドレスの入力は必須です'
+      } else if (!this.email.match(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/)) {
+        this.Validation.email = '正しいメールアドレスを入力してください'
+      } else if (this.email.length > 128) {
+        this.Validation.email = 'メールアドレスは128文字以内でご入力ください'
+      } else {
+        this.Validation.email = null
+        validEmail = true
+      }
+
+      // パスワードのバリデーション
+      if (!this.password.trim()) {
+        this.Validation.password = 'パスワードの入力は必須です'
+      } else if (!this.password.match(/^[A-Za-z0-9]*$/)) {
+        this.Validation.password = 'パスワードは半角英数字でご入力ください'
+      } else if (this.password.length < 4) {
+        this.Validation.password = 'パスワードは4文字以上でご入力ください'
+      } else {
+        this.Validation.password = null
+        validPassword = true
+      }
+
+      // ユーザー名のバリデーション
+      if (!this.name.trim()) {
+        this.Validation.name = 'ユーザー名の入力は必須です'
+      } else if (this.name.length > 10) {
+        this.Validation.name = 'ユーザー名は10文字以内でご入力ください'
+      } else {
+        this.Validation.name = null
+        validUserName = true
+      }
+
+      if (validEmail === true && validPassword === true && validUserName === true) {
+        this.signUp()
+      } else {
+        scrollTo(0, 0)
+      }
+      e.preventDefault()
+    },
     signUp: async function () {
       if (!this.name) {
         this.name = '名無し'

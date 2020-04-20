@@ -141,6 +141,15 @@ button:hover{
   text-align: left;
 }
 
+.valid-error-active{
+  border: 1px solid #cf5271;
+}
+.valid-error{
+  font-weight: bold;
+  color: #cf5271;
+  font-size: 3vw;
+}
+
 /* セレクト */
 .cp_ipselect {
   position: relative;
