@@ -2,6 +2,7 @@ import firebase from 'firebase'
 import store from '../store'
 import router from '../router'
 import axios from 'axios'
+import firebaseError from './firebaseError'
 
 const firebaseConfig = {
   apiKey: process.env.FIRE_BASE_API_KEY,
@@ -25,7 +26,7 @@ export default {
       })
       .catch(error => {
         console.log('エラー処理')
-        alert(error.message)
+        alert(firebaseError(error, 'signup'))
       })
   },
   login (email, password, redirectUrl) {
@@ -39,9 +40,9 @@ export default {
         await store.commit('setRedirectUrl', null)
         await router.push(redirectUrl)
       },
-      err => {
+      error => {
         console.log('エラー処理')
-        alert(err.message)
+        alert(firebaseError(error, 'signup'))
       }
     )
   },
