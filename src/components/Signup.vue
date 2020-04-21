@@ -127,6 +127,10 @@ export default {
       e.preventDefault()
     },
     signUp: async function () {
+      let redirectUrl = this.$store.getters.redirectUrl
+      if (redirectUrl === null) {
+        redirectUrl = '/top'
+      }
       if (!this.name) {
         this.name = '名無し'
       }
@@ -143,7 +147,7 @@ export default {
           this.$store.commit('onSeisankunAuthStateChanged', response.data)
           this.$store.commit('onUserStatusChanged', !!userByFirebase.uid)
           alert('会員登録完了！\n 引き続きサービスをご利用ください')
-          await this.$router.push(this.$store.getters.redirectUrl)
+          await this.$router.push(redirectUrl)
           this.$store.commit('setRedirectUrl', null)
         })
         .catch(err => {
