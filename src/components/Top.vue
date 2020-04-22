@@ -72,7 +72,7 @@ export default {
     }
   },
   mounted () {
-    this.getTravels()
+    this.getUserId()
   },
   methods: {
     tabChange (tabName) {
@@ -81,8 +81,20 @@ export default {
     customformat (value) {
       return moment(value).format('YYYY/MM/DD')
     },
-    getTravels () {
-      this.$seisankunApi.get('/v1/travel/list/' + this.$store.getters.userBySeisankun.id + '')
+    getUserId () {
+      this.$seisankunApi.get('/v1/user/info/' + this.$store.getters.userByFirebase.uid + '')
+        .then(response => {
+          this.getTravels(response.data.id)
+        })
+        .catch(err => {
+          for (let key of Object.keys(err)) {
+            console.log(key)
+            console.log(err[key])
+          }
+        })
+    },
+    getTravels (userId) {
+      this.$seisankunApi.get('/v1/travel/list/' + userId + '')
         .then(response => {
           response.data.some(travel => {
             if (travel.travel.travelStart >= moment().format('YYYY-MM-DD')) {
