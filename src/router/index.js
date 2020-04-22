@@ -143,10 +143,13 @@ function existTravel (userId, travelHashId) {
       return response.data
     })
     .catch(err => {
+      let errStatus
       for (let key of Object.keys(err)) {
-        console.log(key)
-        console.log(err[key])
+        if (key === 'response') {
+          errStatus = err[key].status
+        }
       }
+      alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
       return null
     })
 }
@@ -161,10 +164,13 @@ function joinTravel (userId, travelHashId) {
       return true
     })
     .catch(err => {
+      let errStatus
       for (let key of Object.keys(err)) {
-        console.log(key)
-        console.log(err[key])
+        if (key === 'response') {
+          errStatus = err[key].status
+        }
       }
+      alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
       return false
     })
 }

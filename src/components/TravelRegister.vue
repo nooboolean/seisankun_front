@@ -128,10 +128,16 @@ export default {
           await this.$router.push('/travel/info/' + response.data.hashId + '')
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     joinTravel (travelId, userId) {
@@ -144,10 +150,16 @@ export default {
           return true
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     }
   }

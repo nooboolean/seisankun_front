@@ -52,10 +52,16 @@ export default {
           this.borrowHistoryList = response.data
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     }
   }

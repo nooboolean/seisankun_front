@@ -25,7 +25,6 @@ export default {
         return firebase.auth().currentUser
       })
       .catch(error => {
-        console.log('エラー処理')
         alert(firebaseError(error, 'signup'))
       })
   },
@@ -41,7 +40,6 @@ export default {
         await router.push(redirectUrl)
       },
       error => {
-        console.log('エラー処理')
         alert(firebaseError(error, 'signup'))
       }
     )
@@ -70,10 +68,16 @@ export default {
             store.commit('onUserStatusChanged', user.uid)
           ))
           .catch(err => {
+            let errStatus
             for (let key of Object.keys(err)) {
-              console.log(key)
-              console.log(err[key])
+              if (key === 'response') {
+                errStatus = err[key].status
+              }
             }
+            if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
           })
       } else {
         // eslint-disable-next-line no-unused-expressions

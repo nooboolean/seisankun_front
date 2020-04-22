@@ -141,10 +141,16 @@ export default {
           this.getBorrowers(response.data)
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     getTravel (travelId) {
@@ -152,25 +158,37 @@ export default {
         .then(response => {
           this.travel = response.data
           this.getTraveler()
-          this.getPayments()
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     getTraveler () {
       this.$seisankunApi.get('/v1/traveler/' + this.travel.id + '')
-        .then(response => {
-          this.travelers = response.data
+        .then(async response => {
+          this.travelers = await response.data
+          await this.getPayments()
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     getPayments () {
@@ -180,10 +198,19 @@ export default {
           this.setBorrowMoneyList()
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     setBorrowMoneyList () {
@@ -230,10 +257,16 @@ export default {
           this.borrowMoney = response.data
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     desc (a, b) {

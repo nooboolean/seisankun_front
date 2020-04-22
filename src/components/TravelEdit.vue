@@ -123,10 +123,16 @@ export default {
           this.getTraveler(response.data)
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     customformat (value) {
@@ -166,10 +172,16 @@ export default {
           this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     deleteTraveler (travelId, secessionUserId, secessionUserName) {
@@ -186,10 +198,16 @@ export default {
           this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     getTravel (travelId) {
@@ -202,10 +220,16 @@ export default {
           this.privateFlagSelected = response.data.privateFlag
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     getTraveler (travelId) {
@@ -214,10 +238,16 @@ export default {
           this.travelers = response.data
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     softDeleteTravel (travelId) {
@@ -232,10 +262,16 @@ export default {
           this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     deleteTravel (travelId) {
@@ -250,10 +286,16 @@ export default {
           this.$router.push('/top')
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     openDeleteModal () {

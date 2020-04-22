@@ -95,10 +95,16 @@ export default {
           this.getTraveler(response.data)
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     cancel: function () {
@@ -135,10 +141,12 @@ export default {
         validBorrowers = true
       }
       // 料金のバリデーション
-      if (!this.paymentAmount.trim()) {
+      if (!String(this.paymentAmount).trim()) {
         this.Validation.paymentAmount = '料金の入力は必須です'
-      } else if (!this.paymentAmount.trim().match(/^([1-9]\d*|0)$/)) {
+      } else if (!String(this.paymentAmount).trim().match(/^([1-9]\d*|0)$/)) {
         this.Validation.paymentAmount = '料金は半角数字をご入力ください'
+      } else if (String(this.paymentAmount).trim().length > 10) {
+        this.Validation.paymentAmount = '料金は10桁以内でご入力ください'
       } else {
         this.Validation.paymentAmount = null
         validPaymentAmount = true
@@ -166,10 +174,16 @@ export default {
           this.$router.push('/travel/info/' + this.$route.params.travel_hash_id + '')
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
     getTraveler (travelId) {
@@ -183,10 +197,16 @@ export default {
           })
         })
         .catch(err => {
+          let errStatus
           for (let key of Object.keys(err)) {
-            console.log(key)
-            console.log(err[key])
+            if (key === 'response') {
+              errStatus = err[key].status
+            }
           }
+          if (typeof errStatus === 'undefined') {
+            errStatus = 'なし'
+          }
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     }
   }
