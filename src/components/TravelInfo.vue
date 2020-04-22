@@ -207,9 +207,6 @@ export default {
           if (typeof errStatus === 'undefined') {
             errStatus = 'なし'
           }
-          if (typeof errStatus === 'undefined') {
-            errStatus = 'なし'
-          }
           alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
         })
     },
