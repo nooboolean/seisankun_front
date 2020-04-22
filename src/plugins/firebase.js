@@ -75,9 +75,9 @@ export default {
               }
             }
             if (typeof errStatus === 'undefined') {
-            errStatus = 'なし'
-          }
-          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
+              errStatus = 'なし'
+            }
+            alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
           })
       } else {
         // eslint-disable-next-line no-unused-expressions
