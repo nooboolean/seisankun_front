@@ -4,6 +4,7 @@ import Signup from '@/components/Signup'
 import Signin from '@/components/Signin'
 import Signout from '@/components/Signout'
 import Tos from '@/components/Tos'
+import PrivacyPolicy from '@/components/PrivacyPolicy'
 import Top from '@/components/Top'
 import UserInfo from '@/components/UserInfo'
 import TravelInfo from '@/components/TravelInfo'
@@ -106,6 +107,11 @@ let router = new Router({
       path: '/tos',
       name: 'Tos',
       component: Tos
+    },
+    {
+      path: '/privacy_policy',
+      name: 'PrivacyPolicy',
+      component: PrivacyPolicy
     }
   ]
 })

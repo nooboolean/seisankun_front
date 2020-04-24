@@ -210,7 +210,7 @@
         </ul>
       </div>
       <div class="tos-item-container">
-        <h2 class="tos-item-title">第１５条（準拠法・裁判管轄）</h2>
+        <h2 class="tos-item-title">第１４条（準拠法・裁判管轄）</h2>
         <ul class="tos-item-explanation">
           <p>本規約の解釈にあたっては，日本法を準拠法とします。</p>
         </ul>
