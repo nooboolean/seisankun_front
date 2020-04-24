@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Signup from '@/components/Signup'
 import Signin from '@/components/Signin'
 import Signout from '@/components/Signout'
+import Tos from '@/components/Tos'
 import Top from '@/components/Top'
 import UserInfo from '@/components/UserInfo'
 import TravelInfo from '@/components/TravelInfo'
@@ -100,6 +101,11 @@ let router = new Router({
       path: '/signin',
       name: 'Signin',
       component: Signin
+    },
+    {
+      path: '/tos',
+      name: 'Tos',
+      component: Tos
     }
   ]
 })
