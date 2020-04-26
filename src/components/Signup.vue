@@ -42,8 +42,10 @@
       </select> -->
       <!-- <h3>自己紹介文</h3>
       <textarea placeholder="Profile" v-model="profile"></textarea> -->
-      <p class="terms-prompt"><router-link to="/tos" class="terms-button">利用規約</router-link>に同意の上会員登録してください</p>
-      <button class="signup-button" @click="validForm">規約に同意して<br><span style="font-size:4vw; font-weight: bold;">会員登録</span></button>
+      <div class="button-container">
+        <p class="terms-prompt"><router-link to="/tos" class="terms-button">利用規約</router-link>に同意の上会員登録してください</p>
+        <button class="signup-button" @click="validForm">規約に同意して<br><span class="signup-button-label">会員登録</span></button>
+      </div>
       <div class="signin-router">
         <p>すでに会員登録がお済みの方はこちら</p>
         <router-link to="/signin" class="signin-path-button">ログイン</router-link>
@@ -178,25 +180,29 @@ a {
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
-  align-items: center
+  align-items: center;
 }
 .input-container{
   margin-bottom: 10px;
   text-align: left;
+  width: 60%;
 }
 .input-label{
   margin: 0;
   padding:0;
   color: #2c3e50;
-  font-size: 3vw;
+  font-size: 70%;
 }
 input {
   margin:0;
-  width: 50vw;
+  width: 90%;
+}
+.button-container {
+  width: 60%;
 }
 .terms-prompt{
   margin-top: 10px;
-  font-size: 3vw;
+  font-size: 70%;
 }
 .terms-button{
   color: #2c3e50;
@@ -205,13 +211,14 @@ input {
   background-color: #1db8a3;
 }
 .signup-button{
-  height: 12vw;
-  font-size: 3vw;
+  height: 50px;
+  font-size: 70%;
 }
 
 .signin-router{
+  width: 60%;
   margin-top: 30px;
-  font-size: 3vw;
+  font-size: 75%;
 }
 
 .signin-path-button{
@@ -220,11 +227,15 @@ input {
 }
 
 .logo {
-  width: 45vw;
+  width: 50%;
 }
 
 button{
-  width: 55vw;
+  width: 100%;
   height: 10vw;
+}
+.signup-button-label {
+  font-size:150%;
+  font-weight: bold;
 }
 </style>

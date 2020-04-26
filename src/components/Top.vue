@@ -52,10 +52,12 @@
           </div>
         </router-link>
        </li>
+       <div class="register-button-container">
+          <div class="register-button flex">
+            <router-link class="register--button-text" to="travel/register">+</router-link>
+          </div>
+       </div>
     </ul>
-    <div class="register-button">
-      <router-link to="travel/register">+</router-link>
-    </div>
   </div>
 </template>
 
@@ -143,10 +145,10 @@ export default {
 }
 
 .travels-tab-button{
-  padding-top: 5vw;
-  height: 5vw;
+  padding-top: 5%;
+  height: 5%;
   width: 50%;
-  font-size: 3vw;
+  font-size: 100%;
   cursor: pointer;
 }
 
@@ -163,18 +165,19 @@ export default {
   box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
-  font-size: 3vw;
+  font-size: 70%;
 }
 
 .travel-title{
   height: 15vw;
+  max-height: 75px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .travel-title-text{
-  font-size: 5vw;
+  font-size: 170%;
   text-shadow: 2px 2px 5px #2c3e50;
 }
 
@@ -182,7 +185,7 @@ export default {
   background-color: #1db8a3;
   color: #fff;
   flex-direction: column;
-  height: 20vw;
+  max-height: 100px;
   padding: 5px;
 }
 
@@ -194,7 +197,6 @@ export default {
 
 .travel-card-member-container{
   flex-direction: column;
-  height: 15vw;
   padding: 5px;
   color: #2c3e50;
 }
@@ -208,18 +210,38 @@ export default {
   font-weight: bold;
 }
 
-.register-button{
-  font-weight: bold;
-  font-size: 11vw;
+.register-button-container {
   position: fixed;
-  top: 570px;
-  right: 10px;
+  top: 80%;
+  display: flex;
+  width: 90%;
+  max-width: 450px;
+  justify-content: flex-end;
+}
+
+.register-button{
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 10vw;
   width: 15vw;
   height: 15vw;
-  /* background-color: #e4640f;*/
+  max-width: 75px;
+  max-height: 75px;
   background-color: #cf5271;
   border-radius: 100%;
   box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.4);
+}
+@media (min-width: 500px) {
+  .register-button {
+    font-size: 55px;
+  }
+}
+.register--button-text {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  align-self: center;
 }
 .travel-between{
   margin: 0 10px;

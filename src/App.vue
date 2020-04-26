@@ -29,16 +29,19 @@ export default {
 }
 
 body {
-  background-color :#1db8a3;
   font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
 }
 
 #app {
+  background-color :#1db8a3;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #fff;
+  max-width: 500px;
+  margin: 0 auto;
+  min-height: 100vh;
 }
 
 #container {
@@ -46,7 +49,7 @@ body {
 }
 
 #footer-container{
-  margin: 5px 5vw;
+  /* margin: 5px 5vw; */
 }
 
 a{
@@ -86,12 +89,12 @@ button:hover{
 
 .title {
   margin-bottom: 10px;
-  font-size: 6vw;
+  font-size: 150%;
 }
 
 .base-box {
   background-color: #fff;
-  min-height: 500px;
+  min-height: 80vh;
   padding: 20px 10px;
 }
 
@@ -135,7 +138,7 @@ button:hover{
 }
 
 .input-valid-message{
-  font-size: 3vw;
+  font-size: 70%;
 }
 .valid-message-container{
   text-align: left;

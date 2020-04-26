@@ -166,7 +166,7 @@
         </ul>
       </div>
       <div class="tos-item-container">
-        <h2 class="tos-item-title">第９条（（プライバシーポリシーの変更）</h2>
+        <h2 class="tos-item-title">第９条（プライバシーポリシーの変更）</h2>
         <ul class="tos-item-explanation">
           <li class="flex">
             <p class="index">1.</p> <p class="explanation">本ポリシーの内容は，法令その他本ポリシーに別段の定めのある事項を除いて，ユーザーに通知することなく，変更することができるものとします。 </p>
@@ -177,7 +177,7 @@
         </ul>
       </div>
       <div class="tos-item-container">
-        <h2 class="tos-item-title">第１０条（（お問い合わせ窓口）</h2>
+        <h2 class="tos-item-title">第１０条（お問い合わせ窓口）</h2>
         <ul class="tos-item-explanation">
           <p>本ポリシーに関するお問い合わせは，下記の窓口までお願いいたします。</p>
           <li class="flex">

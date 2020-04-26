@@ -3,18 +3,22 @@
     <h1 class="title">ログイン</h1>
     <div class="base-box login">
       <img class="logo" src="@/assets/logo.002.png">
-      <input class="login-text" type="text" placeholder="メールアドレス" v-model="email" v-bind:class="{'valid-error-active': Validation.email}">
-      <div class="valid-message-container">
-        <p v-if="Validation.email" class="valid-error">
-          {{ Validation.email }}
-        </p>
+      <div class="input-container">
+        <input class="login-text" type="text" placeholder="メールアドレス" v-model="email" v-bind:class="{'valid-error-active': Validation.email}">
+        <div class="valid-message-container">
+          <p v-if="Validation.email" class="valid-error">
+            {{ Validation.email }}
+          </p>
+        </div>
       </div>
-      <input class="login-text" type="password" placeholder="パスワード" v-model="password" v-bind:class="{'valid-error-active': Validation.password}">
+      <div class="input-container">
+        <input class="login-text" type="password" placeholder="パスワード" v-model="password" v-bind:class="{'valid-error-active': Validation.password}">
         <div class="valid-message-container">
           <p v-if="Validation.password" class="valid-error">
             {{ Validation.password }}
           </p>
         </div>
+      </div>
       <button class="login-button" @click="validForm">ログイン</button>
       <div class="signup-router">
         <p>会員をお持ちでない方はこちらから</p>
@@ -106,24 +110,28 @@ export default {
 
 .signup-router{
   margin-top: 20px;
-  font-size: 3vw;
+  width: 60%;
+  font-size: 75%;
 }
 
 .signup-path-button{
   color: #2c3e50;
   cursor: pointer;
 }
+.input-container {
+  width: 60%;
+}
 
 .login-text{
-  width: 45vw;
+  width: 90%;
 }
 
 .logo {
-  width: 45vw;
+  width: 50%;
 }
 button{
   margin-top: 10px;
-  width: 50vw;
-  height: 10vw;
+  width: 60%;
+  height: 40px;
 }
 </style>

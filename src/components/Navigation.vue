@@ -34,15 +34,15 @@ export default {
 
 <style scoped>
 #nav {
-  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.4);
+  /* box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.4); */
   border-bottom: solid 1px #fff;
-  padding: 5px 5vw;
+  padding: 5px 5%;
   display: flex;
 }
 
 .top-logo {
   margin-top: 5px;
-  width: 10vw;
+  width: 50%;
   max-width: 80px;
 }
 
