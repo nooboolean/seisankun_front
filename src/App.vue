@@ -150,13 +150,13 @@ button:hover{
 .valid-error{
   font-weight: bold;
   color: #cf5271;
-  font-size: 3vw;
+  font-size: 70%;
 }
 
 /* セレクト */
 .cp_ipselect {
   position: relative;
-  width: 65vw;
+  width: 100%;
   margin: 30px 0 0 0;
   text-align: center;
 }
@@ -165,7 +165,7 @@ button:hover{
   background-color: transparent;
   width: 100%;
   padding: 10px 10px 5px 0;
-  font-size: 4vw;
+  font-size: 100%;
   border-radius: 0;
   border: none;
   border-bottom: 1px solid #2c3e50;
@@ -208,7 +208,7 @@ button:hover{
   color: #fff;
   top: -20px;
   transition: 0.2s ease all;
-  font-size: 3vw;
+  font-size: 70%;
 }
 .cp_sl06_selectbar {
   position: relative;
@@ -246,7 +246,7 @@ button:hover{
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   color: #a1b1c0;
-  width: 65vw;
+  width: 100%;
 }
 .cp_ipcheck:before, .cp_ipcheck:after {
   -webkit-box-sizing: inherit;
@@ -277,13 +277,13 @@ button:hover{
   background: #ffffff;
 }
 .cp_ipcheck label {
-  font-size: 4vw;
+  font-size: 100%;
   font-weight: bold;
   line-height: 1;
   position: relative;
   display: block;
   overflow: hidden;
-  padding: 5px 200px 5px 3em;
+  padding: 5px 30% 5px 3em;
   cursor: pointer;
   -webkit-transition: all 0.15s ease;
           transition: all 0.15s ease;

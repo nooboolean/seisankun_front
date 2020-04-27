@@ -74,8 +74,8 @@
       <div class="overlay" v-show="showShareModal">
         <p>以下URLをコピーして参加者に送信しよう！</p>
         <input type="text" id="copy-target" v-model="pagePath" readonly>
-        <button @click="clipboard_ni_copy">コピー</button>
-        <button @click="closeShareModale">閉じる</button>
+        <button class="copy-button" @click="clipboard_ni_copy">コピー</button>
+        <button class="copy-button" @click="closeShareModale">閉じる</button>
       </div>
     </div>
   </div>
@@ -327,6 +327,15 @@ export default {
 </script>
 
 <style scoped>
+.copy-button {
+  width: 60%;
+  max-width: 300px;
+  margin-bottom: 10px;
+}
+#copy-target {
+  width: 80%;
+  max-width: 400px;
+}
 .message-area-container{
   padding: 5vw 5vw;
   margin-top: 10vw;
@@ -348,14 +357,14 @@ export default {
 .list-title{
   margin: 10px 0px;
   color: #2c3e50;
-  font-size: 5vw;
+  font-size: 120%;
 }
 .list-title::before,
 .list-title::after {
   content: "";
   background-color: #2c3e50;
   display: inline-block;
-  width: 10vw;
+  width: 10%;
   height: 2px;
   margin: 0 2rem;
   vertical-align: middle;
@@ -363,23 +372,24 @@ export default {
 .edit-button{
   position: absolute;
   right: 5vw;
-  width: 5vw;
+  width: 5%;
+  max-width: 25px;
 }
 .title{
   margin: 0;
 }
 .travel-header{
-  padding: 20px 10vw 0 10vw;
+  padding: 20px 10% 0 10%;
   margin-bottom: 5px;
 }
 .title-label{
   color: #505253;
   letter-spacing: 5px;
-  font-size: 3vw;
+  font-size: 100%;
 }
 .travel-detail{
   color: #2c3e50;
-  font-size: 3vw;
+  font-size: 80%;
 }
 .flex{
   justify-content: space-between;
@@ -387,7 +397,7 @@ export default {
 .travel-label{
   text-align: left;
   color: #505253;
-  font-size: 2vw;
+  font-size: 60%;
 }
 .traveler-container{
   text-align: left;
@@ -398,7 +408,7 @@ export default {
 }
 
 .payment-button{
-  font-size: 4vw;
+  font-size: 100%;
   width:100%;
   height: 50px;
 }
@@ -428,11 +438,18 @@ export default {
 .payment-edit-button{
   right: 6vw;
   width: 6vw;
+  max-width: 30px;
 }
 
 .payment-amount{
-  font-size: 5vw;
+  font-size: 140%;
   margin-right: 6vw;
+}
+
+@media (min-width: 500px) {
+  .payment-amount {
+    margin-right: 30px;
+  }
 }
 
 .back-top{
@@ -449,7 +466,7 @@ export default {
 
 .payer{
   color: #1db8a3;
-  font-size: 3vw;
+  font-size: 75%;
 }
 
 .payment-borrow-list{
@@ -465,6 +482,12 @@ export default {
 
 .borrow-money{
   margin-right: 6vw;
+}
+
+@media (min-width: 500px) {
+  .borrow-money {
+    margin-right: 30px;
+  }
 }
 
 .blue{

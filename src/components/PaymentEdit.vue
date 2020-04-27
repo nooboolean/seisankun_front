@@ -52,10 +52,10 @@
         </div>
         <div class="valid-message-container">
           <p class="input-valid-message">※半角数字でご入力ください</p>
+          <p v-if="Validation.paymentAmount" class="valid-error">
+            {{ Validation.paymentAmount }}
+          </p>
         </div>
-        <p v-if="Validation.paymentAmount" class="valid-error">
-          {{ Validation.paymentAmount }}
-        </p>
       </div>
       <button @click="validForm">更新</button>
       <button class="cancel-button" @click="cancel(travelId)">キャンセル</button>
@@ -294,17 +294,17 @@ export default {
 
 <style scoped>
 .input-text{
-  width: 60vw;
+  width: 90%;
   margin:0;
 }
 
 .input-text-amount{
-  width: 55vw;
+  width: 83%;
   margin:0;
 }
 
 .input-title{
-  font-size: 4vw;
+  font-size: 100%;
   color: #2c3e50;
 }
 
@@ -314,6 +314,7 @@ export default {
 
 .edit-area{
   margin-bottom: 30px;
+  width: 70%;
 }
 
 .payment-edit{
@@ -324,8 +325,9 @@ export default {
 }
 
 button{
-  width: 65vw;
+  width: 65%;
   height: 10vw;
+  max-height: 40px;
 }
 
 .cancel-button{

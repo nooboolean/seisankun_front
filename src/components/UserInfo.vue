@@ -40,7 +40,7 @@ export default {
   color: #3e4853;
 }
 .user-detail{
-  font-size: 7vw;
+  font-size: 200%;
   color: #2c3e50;
   margin-bottom: 30px;
   border-bottom: 2px dotted #e4640f;

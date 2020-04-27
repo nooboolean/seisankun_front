@@ -2,7 +2,7 @@
   <div>
     <h1 class="title">旅行作成</h1>
     <div class="base-box travel-regist">
-      <div class="edit-area">
+      <div class="edit-area travel-name-container">
         <h2 class="input-title">旅行名</h2>
         <input type="text" placeholder="旅行名" v-model="travelName" v-bind:class="{'valid-error-active': Validation.travelName}">
         <div class="valid-message-container">
@@ -75,7 +75,7 @@ export default {
         days: [6, 0]
       },
       ja:ja,
-      travelName: null,
+      travelName: '',
       travelStart: moment().format('YYYY-MM-DD'),
       travelEnd: moment().format('YYYY-MM-DD'),
       privateFlagSelected: 0,
@@ -168,11 +168,15 @@ export default {
 
 <style scoped>
 .input-title{
-  font-size: 4vw;
+  font-size: 100%;
   color: #2c3e50;
 }
 .edit-area{
   margin-bottom: 20px;
+  width: 90%;
+}
+.travel-name-container {
+  width: 70%;
 }
 .travel-regist {
   margin-top: 20px;
@@ -183,12 +187,13 @@ export default {
   background-color: #1db8a3;
 }
 input{
-  width: 60vw;
+  width: 90%;
   margin:0;
 }
 button{
-  width: 60vw;
+  width: 65%;
   height: 10vw;
+  max-height: 40px;
 }
 .cancel-button{
   margin-top: 10px;

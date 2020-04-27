@@ -70,14 +70,15 @@ export default {
 
 <style scoped>
 .borrow-history-list-header{
-  padding-right: 6vw;
+  padding-left: 7%;
+  padding-right: 7%;
   justify-content: space-between;
   padding-bottom: 10px;
   border-bottom: 1px dotted #abacad;
   margin-bottom: 10px;
   align-items: center;
   color: #3b4147;
-  font-size: 3vw;
+  font-size: 70%;
 }
 
 .borrow-history-container{
@@ -92,6 +93,8 @@ export default {
   border-bottom: 1px solid #2c3e50;
   margin-bottom: 20px;
   align-items: center;
+  padding-right: 7%;
+  padding-left: 7%;
 }
 
 .borrow-history-list-left{
@@ -104,8 +107,7 @@ export default {
 }
 
 .borrow-history-amount{
-  font-size: 5vw;
-  margin-right: 6vw;
+  font-size: 120%;
 }
 
 .blue{

@@ -2,7 +2,7 @@
   <div>
     <h1 class="title">旅行編集</h1>
     <div class="base-box travel-edit">
-      <div class="edit-area">
+      <div class="edit-area travel-name-container">
         <h2 class="input-title">旅行名</h2>
         <input type="text" placeholder="旅行名" v-model="travelName" v-bind:class="{'valid-error-active': Validation.travelName}">
         <div class="valid-message-container">
@@ -72,8 +72,8 @@
       <div class="overlay" v-show="showDeleteModal">
         <p>本当に削除しますか？</p>
         <div class="modal-button">
-          <button @click="closeDeleteModale">いいえ</button>
           <button @click="deleteTravel(travelId)">はい</button>
+          <button @click="closeDeleteModale">いいえ</button>
         </div>
       </div>
   </div>
@@ -310,7 +310,7 @@ export default {
 
 <style scoped>
 .input-title{
-  font-size: 4vw;
+  font-size: 100%;
   color: #2c3e50;
 }
 .travel-edit{
@@ -328,6 +328,10 @@ export default {
 }
 .edit-area{
   margin-bottom: 20px;
+  width: 90%;
+}
+.travel-name-container {
+  width: 70%;
 }
 .traveler-list{
   flex-direction: column;
@@ -345,12 +349,13 @@ export default {
   float: right;
 }
 input{
-  width: 60vw;
+  width: 90%;
   margin:0;
 }
 button{
-  width: 60vw;
+  width: 65%;
   height: 10vw;
+  max-height: 40px;
 }
 .cancel-button{
   margin-top: 10px;
