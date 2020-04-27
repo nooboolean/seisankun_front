@@ -1,7 +1,9 @@
 <template>
   <div>
-    <router-link class="back-top" to="/top"><< 旅行一覧</router-link>
-    <router-link v-bind:to="{ name : 'TravelEdit', params : { travel_hash_id: travel.hashId }}"><img class="edit-button" src="@/assets/edit-button.png"></router-link>
+    <div class="travel-info-nav">
+      <router-link class="back-top" to="/top"><< 旅行一覧</router-link>
+      <router-link v-bind:to="{ name : 'TravelEdit', params : { travel_hash_id: travel.hashId }}"><img class="edit-button" src="@/assets/edit-button.png"></router-link>
+    </div>
     <div class="travel-header">
       <p class="title-label">旅行名</p>
       <h1 class="title">{{ travel.name }}</h1>
@@ -327,6 +329,11 @@ export default {
 </script>
 
 <style scoped>
+.travel-info-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5%;
+}
 .copy-button {
   width: 60%;
   max-width: 300px;
@@ -337,22 +344,22 @@ export default {
   max-width: 400px;
 }
 .message-area-container{
-  padding: 5vw 5vw;
-  margin-top: 10vw;
+  padding: 5% 5%;
+  margin-top: 10%;
   background: #e4e5e6;
-  border-radius: 1vw;
+  border-radius: 1%;
 }
 .message-area{
   flex-direction: column;
   align-content: center;
   justify-content: center;
   background: #fefeff;
-  border-radius: 1vw;
+  border-radius: 1%;
   width: 100%;
-  height: 50vw;
+  height: 190px;
   color:#2c3e50;
-  font-size: 4vw;
-  padding: 4vw 0vw;
+  font-size: 90%;
+  padding: 5% 0vw;
 }
 .list-title{
   margin: 10px 0px;
@@ -370,16 +377,14 @@ export default {
   vertical-align: middle;
 }
 .edit-button{
-  position: absolute;
-  right: 5vw;
-  width: 5%;
+  width: 80%;
   max-width: 25px;
 }
 .title{
   margin: 0;
 }
 .travel-header{
-  padding: 20px 10% 0 10%;
+  padding: 0 10%;
   margin-bottom: 5px;
 }
 .title-label{
@@ -453,10 +458,8 @@ export default {
 }
 
 .back-top{
-  position: absolute;
-  font-size: 4vw;
+  font-size: 90%;
   color: #2c3e50;
-  left: 3vw;
 }
 
 .traveler-container{

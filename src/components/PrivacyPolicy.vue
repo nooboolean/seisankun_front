@@ -203,7 +203,7 @@ export default {
 <style scoped>
 .tos-explanation-container {
   display: flex;
-  font-size: 3vw;
+  font-size: 70%;
   text-align: left;
   border-bottom: 1px dotted #2c3e50;
   margin-bottom: 20px;
@@ -221,7 +221,7 @@ export default {
   margin-bottom: 10px;
 }
 .tos-item-explanation {
-  font-size: 3vw;
+  font-size: 70%;
   display: flex;
   flex-direction: column;
   padding: 0 15px;
@@ -232,7 +232,7 @@ export default {
   margin: 10px 0;
 }
 .tos-item-title {
-  font-size: 5vw;
+  font-size: 100%;
 }
 .index {
   display: inline-block;

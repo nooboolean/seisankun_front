@@ -30,6 +30,7 @@ export default {
 
 body {
   font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+  background-color: #c7cfd665;
 }
 
 #app {
