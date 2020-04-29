@@ -134,9 +134,11 @@ router.beforeEach(async (to, from, next) => {
 
     if (requireJoinTravel) {
       let firebaseUser = await store.getters.userByFirebase
-      let userTravel = await existTravel(firebaseUser.uid, to.params.travel_hash_id)
-      if (userTravel === '') {
-        joinTravel(firebaseUser.uid, to.params.travel_hash_id)
+      if (firebaseUser.uid) {
+        let userTravel = await existTravel(firebaseUser.uid, to.params.travel_hash_id)
+        if (userTravel === '') {
+          joinTravel(firebaseUser.uid, to.params.travel_hash_id)
+        }
       }
       next()
     } else {
@@ -150,7 +152,12 @@ router.beforeEach(async (to, from, next) => {
 
 function existTravel (userId, travelHashId) {
   return axios
-    .get('' + process.env.SEISANKUN_API_BASE_URL + '/v1/travel/' + travelHashId + '/exist/member/' + userId + '')
+    .get('' + process.env.SEISANKUN_API_BASE_URL + '/v1/travel/' + travelHashId + '/exist/member/' + userId + '', {
+      auth: {
+        username: process.env.BASIC_AUTH_API_USER_NAME,
+        password: process.env.BASIC_AUTH_API_PASSWORD
+      }
+    })
     .then(response => {
       return response.data
     })
@@ -171,6 +178,11 @@ function joinTravel (userId, travelHashId) {
     .post('' + process.env.SEISANKUN_API_BASE_URL + '/v1/travel/join/hashId', {
       travelHashId: travelHashId,
       userUid: userId
+    }, {
+      auth: {
+        username: process.env.BASIC_AUTH_API_USER_NAME,
+        password: process.env.BASIC_AUTH_API_PASSWORD
+      }
     })
     .then(response => {
       return true

@@ -57,16 +57,20 @@ export default {
   },
   async onAuth () {
     // eslint-disable-next-line no-undef
-    await firebase.auth().onAuthStateChanged(async user => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         await axios
-          .get('' + process.env.SEISANKUN_API_BASE_URL + '/v1/user/info/' + user.uid + '')
+          .get('' + process.env.SEISANKUN_API_BASE_URL + '/v1/user/info/' + user.uid + '', {
+            auth: {
+              username: process.env.BASIC_AUTH_API_USER_NAME,
+              password: process.env.BASIC_AUTH_API_PASSWORD
+            }
+          })
           .then(response => (
             // eslint-disable-next-line no-sequences
             store.commit('onFirebaseAuthStateChanged', user),
             store.commit('onSeisankunAuthStateChanged', response.data),
-            store.commit('onUserStatusChanged', user.uid)
-          ))
+            store.commit('onUserStatusChanged', user.uid)))
           .catch(err => {
             let errStatus
             for (let key of Object.keys(err)) {
