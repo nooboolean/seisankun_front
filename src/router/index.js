@@ -13,6 +13,7 @@ import TravelEdit from '@/components/TravelEdit'
 import PaymentRegister from '@/components/PaymentRegister'
 import PaymentEdit from '@/components/PaymentEdit'
 import ShowBorrowHistory from '@/components/ShowBorrowHistory'
+import NotFound from '@/components/NotFound'
 import firebase from 'firebase'
 import axios from 'axios'
 import store from '../store'
@@ -23,7 +24,8 @@ let router = new Router({
   routes: [
     {
       path: '*',
-      redirect: 'signin'
+      name: 'NotFound',
+      component: NotFound
     },
     {
       path: '/top',

@@ -98,7 +98,7 @@ export default {
           if (typeof errStatus === 'undefined') {
             errStatus = 'なし'
           }
-          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。')
+          alert('ステータスコード：' + errStatus + '\nシステムエラーが発生しました。\n再度ログインしなおしてください')
         })
     },
     getTravels (userId) {
