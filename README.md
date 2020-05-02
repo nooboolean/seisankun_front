@@ -16,9 +16,12 @@
  - seisankun_api https://github.com/nooboolean/seisankun_api
 
 ## 初期準備
-1. cloneした後、root配下に `config` ディレクトリを作成してください。
-2. その配下に `dev.env.js` ファイルを作成してください。
-3. `dev.env.js` は以下を参考にしてください。
+1. [Firebase console](https://console.firebase.google.com) から、Firebaseプロジェクトを作成し、**Authentication**で「メール/パスワード」を有効にしてください
+2. 本repositoryをcloneした後、root配下に `config` ディレクトリを作成してください。
+3. その配下に `dev.env.js` ファイルを作成してください。
+4. `dev.env.js` は以下を参考にしてください。
+
+※Basic認証のユーザーなどは、別途開発者から聞いてください
 
 ``` js
 'use strict'
@@ -39,7 +42,7 @@ module.exports = merge(prodEnv, {
 })
 
 ```
-4.[バックエンドAPI](https://github.com/nooboolean/seisankun_api)の準備をしてください
+5.[バックエンドAPI](https://github.com/nooboolean/seisankun_api)の準備をしてください
 
 ## Build Setup
 
