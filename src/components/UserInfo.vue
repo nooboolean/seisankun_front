@@ -3,7 +3,9 @@
     <h1 class="title">ユーザー詳細</h1>
     <ul class="base-box">
       <li class="user-label">名前</li>
-      <li class="user-detail">{{ user.name }}</li>
+      <li class="user-detail">{{ SeisankunUser.name }}</li>
+      <li class="user-label">Email</li>
+      <li class="user-detail">{{ FirebaseUser.email }}</li>
       <!-- <li class="user-label">性別</li>
       <li class="user-detail">{{ gender[user.gender].text }}</li>
       <li class="user-label">自己紹介</li>
@@ -27,8 +29,11 @@ export default {
     }
   },
   computed: {
-    user () {
+    SeisankunUser () {
       return this.$store.getters.userBySeisankun
+    },
+    FirebaseUser () {
+      return this.$store.getters.userByFirebase
     }
   },
   components: {}
