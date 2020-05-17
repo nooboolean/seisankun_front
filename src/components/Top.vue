@@ -6,7 +6,15 @@
         <li class="travels-tab-button" v-on:click="tabChange('future')" v-bind:class="{'tab-active': isActive === 'future'}">今後の予定</li>
         <li class="travels-tab-button" v-on:click="tabChange('past')" v-bind:class="{'tab-active': isActive === 'past'}">過去の予定</li>
       </ul>
-      <li v-if="isActive === 'future' && !futureTravels"></li>
+      <li v-if="isActive === 'future' && futureTravels.length == 0">
+        <div class="message-area-container">
+          <div class="message-area flex">
+            <p>まだ今後の旅行の予定がありません。<br><br>
+            画面右下赤色の「旅行作成ボタン」から<br><br>
+            新しい旅行の予定を作成しよう！</p>
+          </div>
+        </div>
+      </li>
       <li v-else-if="isActive === 'future'" class="travel" v-for="travel in futureTravels">
         <router-link v-bind:to="{ name : 'TravelInfo', params : { travel_hash_id: travel.travel.hashId }}">
           <div class="travel-card-title-container flex">
@@ -138,6 +146,25 @@ export default {
 </script>
 
 <style scoped>
+.message-area-container{
+  padding: 5% 5%;
+  margin-top: 10%;
+  background: #e4e5e6;
+  border-radius: 1%;
+}
+.message-area{
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  background: #fefeff;
+  border-radius: 1%;
+  width: 100%;
+  height: 190px;
+  color:#2c3e50;
+  font-size: 90%;
+  padding: 5% 0vw;
+}
+
 .travels-tab-menu{
   color: #2c3e50;
   justify-content: space-around;

@@ -4,7 +4,7 @@
     <div class="base-box">
       <ul class="borrow-history-container flex">
         <li class="borrow-history-list-header flex">
-          <div class="borrow-history-list-left flex">清算名</div>
+          <div class="borrow-history-list-left flex">支払いタイトル</div>
           <div class="borrow-history-list-right flex">貸借金額</div>
         </li>
         <li class="borrow-history-list flex" v-for="borrowHistory in borrowHistoryList">

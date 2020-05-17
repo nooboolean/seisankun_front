@@ -37,7 +37,7 @@
             </div>
           </li>
         </ul>
-        <h2 class="list-title">清算リスト</h2>
+        <h2 class="list-title">精算リスト</h2>
         <ul class="borrow-relation-container flex">
           <li class="payment-borrow-list flex" v-for="seisanRecord in seisanList">
             <div class="payment-borrow-list-left flex">
@@ -70,7 +70,7 @@
           <p>まだ立替記録がありません。<br><br>
           「支払いの追加」から<br>
           立て替えた記録を追加していこう！<br><br>
-          支払いの追加をすると清算結果を表示します</p>
+          支払いの追加をすると精算結果を表示します</p>
         </div>
       </div>
       <div class="overlay" v-show="showShareModal">
