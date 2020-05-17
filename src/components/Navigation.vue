@@ -1,7 +1,8 @@
 <template>
     <div id="nav">
       <div id="navbar-left">
-        <router-link to="/top"><img class="top-logo" src="@/assets/logo.002.png"></router-link>
+        <router-link v-if="userStatus" to="/top"><img class="top-logo" src="@/assets/logo.002.png"></router-link>
+        <router-link v-else to="/"><img class="top-logo" src="@/assets/logo.002.png"></router-link>
       </div>
       <Authentication />
     </div>
@@ -22,6 +23,11 @@ export default {
     return {
       menuActive: false,
       menuPosition: false
+    }
+  },
+  computed: {
+    userStatus () {
+      return this.$store.getters.isSignedIn
     }
   },
   methods: {

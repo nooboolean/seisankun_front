@@ -14,6 +14,7 @@ import PaymentRegister from '@/components/PaymentRegister'
 import PaymentEdit from '@/components/PaymentEdit'
 import ShowBorrowHistory from '@/components/ShowBorrowHistory'
 import NotFound from '@/components/NotFound'
+import Seisankun from '@/components/Seisankun'
 import firebase from 'firebase'
 import axios from 'axios'
 import store from '../store'
@@ -26,6 +27,11 @@ let router = new Router({
       path: '*',
       name: 'NotFound',
       component: NotFound
+    },
+    {
+      path: '/',
+      name: 'Seisankun',
+      component: Seisankun
     },
     {
       path: '/top',
