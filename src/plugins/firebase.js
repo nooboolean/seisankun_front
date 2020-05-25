@@ -17,7 +17,7 @@ const firebaseConfig = {
 export default {
   init () {
     firebase.initializeApp(firebaseConfig)
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   },
   signupByEmailAndPassword (email, password) {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
