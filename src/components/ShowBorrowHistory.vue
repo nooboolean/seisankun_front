@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title">{{ borrowHistoryList[0].userName }} さんの貸借履歴</h1>
+    <h1 class="title">{{ userName }} さんの貸借履歴</h1>
     <div class="base-box">
       <ul class="borrow-history-container flex">
         <li class="borrow-history-list-header flex">
@@ -27,7 +27,8 @@ export default {
   name: 'ShowBorrowHistory',
   data () {
     return {
-      borrowHistoryList: []
+      borrowHistoryList: [],
+      userName : ''
     }
   },
   mounted () {
@@ -50,6 +51,7 @@ export default {
       this.$seisankunApi.get('/v1/borrow_history/show/' + this.$route.params.borrower_id + '/' + this.$route.params.travel_hash_id + '')
         .then(response => {
           this.borrowHistoryList = response.data
+          this.userName = response.data[0].userName
         })
         .catch(err => {
           let errStatus
